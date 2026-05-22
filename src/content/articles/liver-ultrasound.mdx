@@ -5,6 +5,15 @@ pubDate: 'May 13 2026'
 heroImage: '../../images/liver/normal-liver.jpg'
 ---
 
+import ImageGrid from '../../components/ImageGrid.astro';
+import normalLiver from '../../images/liver/normal-liver.jpg';
+import hepaticVessels from '../../images/liver/hepatic-vessels-anatomy.jpg';
+import fattyLiver1 from '../../images/liver/fatty-liver-grade-1.jpg';
+import fattyLiver2 from '../../images/liver/fatty-liver-grade-2.jpg';
+import fattyLiver3 from '../../images/liver/fatty-liver-posterior-attenuation.jpg';
+import periportalCuffing from '../../images/liver/hepatitis-periportal-cuffing.jpg';
+import gallbladderWallThickening from '../../images/liver/viral-hepatitis-gallbladder-wall-thickening.jpg';
+
 Liver ultrasound remains one of the most commonly performed abdominal imaging studies, offering a non-invasive, radiation-free method to evaluate hepatic anatomy and pathology. This comprehensive guide provides a systematic approach to liver ultrasound, covering essential technical aspects, normal anatomical features, and common pathological findings.
 
 ## Liver anatomy
@@ -54,29 +63,63 @@ The normal liver demonstrates characteristic sonographic features that serve as 
 - Vasculature
   - Should be patent with no evidence of thrombosis or dilatation
 
-![Normal liver](../../images/liver/normal-liver.jpg)
-
-> **Key Diagnosstic Points.**  
->-  _Always compare liver echotexture to the right kidney as an internal reference_
->-  _Measure liver size in both midclavicular and midline planes_
->-  _Assess all hepatic segments systematically_
+<ImageGrid images={[
+  {
+    src: normalLiver,
+    alt: "Normal Liver",
+    caption: "Normal liver with homogeneous echopattern, smooth well-defined capsular surface and slightly hyperechoic to the right renal cortex"
+  },
+  {
+    src: hepaticVessels,
+    alt: "Normal hepatic vessels",
+    caption: "Normal hepatic vessels, they originate from the periphery of the liver, converging into the inferior vena cava (IVC). LHV, left hepatic vein; MHV, middle hepatic vein; RHV, right hepatic vein."
+  }
+]} />
 
 ## Common Pathological Findings
 
 1. Fatty liver
 2. Viral hepatitis
-3. Fatty liver
-4. Liver Cysts
-5. Peribiliary Cysts
-6. Autosomal Dominant Polycystic Disease
-7. Biliary Hamartomas (von Meyenburg Complexes)
-8. Liver abscess
-9. Hydatid Disease
+3. Liver Cysts
+4. Peribiliary Cysts
+5. Autosomal Dominant Polycystic Disease
+6. Biliary Hamartomas (von Meyenburg Complexes)
+7. Liver abscess
+8. Hydatid Disease
+
+
+<ImageGrid images={[
+  {
+    src: fattyLiver1,
+    alt: "Grade 1 Fatty liver",
+    caption: "Grade I fatty liver with minimal difuse increase in hepatic echogenicity with normal visualization of diaphragm and intrahepatic vessel borders."
+  },
+  {
+    src: fattyLiver2,
+    alt: "Grade 2 Fatty liver",
+    caption: "Grade 2 Fatty liver with moderate difuse increase in hepatic echogenicity with slightly impaired visualization of intrahepatic vessels and diaphragm"
+  },
+  {
+    src: fattyLiver3,
+    alt: "Grade 3 Fatty liver",
+    caption: "Grade 3 Fatty liver with severe, marked increase in echogenicity with poor penetration of posterior segment of right lobe of liver and poor or no visualization of hepatic vessels and diaphragm"
+  },
+  {
+    src: periportalCuffing,
+    alt: "Periportal Cuffing",
+    caption: "Increased periportal cuffing giving a starry sky appearence of liver parenchyma in the presence of viral hepatitis"
+  },
+  {
+    src: gallbladderWallThickening,
+    alt: "Gallbladder wall thickening in Viral hepatitis",
+    caption: "There is thickening of gallbladder wall (arrow) in the viral hepatitis"
+  }
+]} />
 
 ## Conclusion
 Liver ultrasound remains an indispensable first-line imaging modality for evaluating hepatic pathology. A systematic approach assessing parenchymal echotexture, vascular patterns, and focal abnormalities enables accurate diagnosis of most hepatic conditions. While ultrasound excels as a screening tool, complementary imaging with contrast-enhanced ultrasound, CT, or MRI may be required for definitive characterization of certain lesions.
 
 ## References
-_American College of Radiology. ACR Appropriateness Criteria® for Right Upper Quadrant Pain. 2021._ <br>
-_Dietrich CF, et al. EFSUMB Guidelines on Interventional Ultrasound. Ultraschall in Med. 2020._ <br>
+_American College of Radiology. ACR Appropriateness Criteria® for Right Upper Quadrant Pain. 2021._  
+_Dietrich CF, et al. EFSUMB Guidelines on Interventional Ultrasound. Ultraschall in Med. 2020._  
 _Khalili K, et al. Sonographic features of hepatocellular carcinoma. J Clin Ultrasound. 2019._
