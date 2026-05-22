@@ -1,0 +1,95 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`Page Not Found | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    <style>
+      h1 {
+        font-size: 35px;
+        margin-bottom: 0.5rem;
+      }
+      span {
+        color: rgb(0, 0, 139);
+      }
+      .error-container {
+        margin: 3rem auto;
+        max-width: 650px;
+      }
+      .error-image {
+        width: 100%;
+        max-height: 300px;
+        object-fit: cover;
+        border-radius: 6px;
+        margin: 1.5rem 0;
+      }
+      .navigation-suggestions {
+        margin-top: 2.5rem;
+      }
+      .navigation-suggestions h2 {
+        font-size: 20px;
+        color: rgb(0, 0, 139);
+        margin-bottom: 1rem;
+      }
+      .link-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        padding: 0;
+        list-style: none;
+      }
+      .link-grid li a {
+        display: block;
+        padding: 0.75rem 1rem;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+      .link-grid li a:hover {
+        background-color: rgb(0, 0, 139);
+        color: #ffffff;
+        border-color: rgb(0, 0, 139);
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="error-container">
+        <h1>404<span>/ Page Not Found</span></h1>
+        
+        <p>
+          The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Please check the URL for spelling errors.
+        </p>
+
+        <img 
+          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
+          alt="Medical professional reviewing documentation" 
+          class="error-image"
+        />
+
+        <div class="navigation-suggestions">
+          <h2>Suggested Destinations</h2>
+          <p>You can navigate back to our core resources using the links below:</p>
+          
+          <ul class="link-grid">
+            <li><a href="/">Homepage</a></li>
+            <li><a href="/articles">Articles</a></li>
+            <li><a href="/cases">Radiology Cases</a></li>
+            <li><a href="/contact">Support & Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
