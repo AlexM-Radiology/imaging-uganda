@@ -4,7 +4,7 @@ description: 'Comprehensive spleen ultrasound guide covering anatomy, scanning t
 pubDate: 'May 21 2026'
 heroImage: '../../images/spleen/normal-spleen.png'
 ---
-import { Image } from 'astro:assets';
+import ImageGrid from '../../components/ImageGrid.astro';
 import img1 from '../../images/spleen/normal-spleen.png';
 import img2 from '../../images/spleen/splenic-vein.jpg';
 import splenomegaly from '../../images/spleen/splenomegaly.jpg';
@@ -14,17 +14,17 @@ import splenicinfact from '../../images/spleen/splenic-infarct-3.jpg';
 import gaucherdisease from '../../images/spleen/spleen-gaucher-disease-4.jpg';
 import gamnagandybodies from '../../images/spleen/spleen-gamna-gandy-bodies.jpg';
 
-The spleen and left upper quadrant (LUQ) should be routinely evaluated on all abdominal investigations, especially in patients with suspected splenomegaly, LUQ pain, or trauma. In general, the spleen can be examined by ultrasound without dificulty. As part of abdominal ultrasound examinations or as a focused assessment, spleen ultrasound provides valuable diagnostic information with high patient tolerance and relatively low cost. Because the normal spleen is uniform in echogenicity, focal abnormalities stand out clearly. Similarly, perisplenic abnormalities and fluid collections are usually easily identified. Occasionally, because the spleen is located high in the LUQ, dificulties can be encountered. Shadowing from ribs, overlying bowel gas, and overlying lung can obscure visualization of the deeper structures. Expertise and persistence may be required to overcome these obstacles
+The spleen and left upper quadrant (LUQ) should be routinely evaluated on all abdominal investigations, especially in patients with suspected splenomegaly, LUQ pain, or trauma. In general, the spleen can be examined by ultrasound without difficulty. As part of abdominal ultrasound examinations or as a focused assessment, spleen ultrasound provides valuable diagnostic information with high patient tolerance and relatively low cost. Because the normal spleen is uniform in echogenicity, focal abnormalities stand out clearly. Similarly, perisplenic abnormalities and fluid collections are usually easily identified. Occasionally, because the spleen is located high in the LUQ, difficulties can be encountered. Shadowing from ribs, overlying bowel gas, and overlying lung can obscure visualization of the deeper structures. Expertise and persistence may be required to overcome these obstacles.
 
 ## Anatomy of the spleen
 
-The normal adult spleen is convex superolaterally and concave inferomedially. The spleen lies between the fundus of the stomach and the diaphragm, with its long axis in the line of the let 10th rib. The diaphragmatic surface is in contact with the diaphragm and the rib cage, its is convex and is usually situated between the 9th and 11th ribs. The visceral or inferomedial surface is in contact with other abdominal viscera and has gentle indentations where it comes into contact with the stomach, left kidney, pancreas, and splenic flexure.
+The normal adult spleen is convex superolaterally and concave inferomedially. The spleen lies between the fundus of the stomach and the diaphragm, with its long axis in the line of the left 10th rib. The diaphragmatic surface is in contact with the diaphragm and the rib cage, it is convex and is usually situated between the 9th and 11th ribs. The visceral or inferomedial surface is in contact with other abdominal viscera and has gentle indentations where it comes into contact with the stomach, left kidney, pancreas, and splenic flexure.
 
 **Anatomical relations**
 
 - Anterior: Stomach
 - Posterior: Diaphragm, Left lung and Rib 9 - 11
-- Infereior: Left colic flexure (splenic flexure)
+- Inferior: Left colic flexure (splenic flexure)
 - Medial: Left kidney and Tail of the pancreas
 
 ## Clinical Indications
@@ -36,8 +36,8 @@ Ultrasound is particularly valuable for:
 - Guiding interventional procedures
 
 ## Technique/Preparation
-Patient preperation. The patient should take nothing by mouth for 8 hours preceeding the examination. If fluid is essential to prevent dehydration, only water should be given. If symptoms are acute, proceed with the examination. Infants - clinical condition permiting - should be given nothing by mouth for 3 hours preceeding the examination.
-For acutely ill patients (e.g trauma, sudden abdominal pain, post surgical pyrexial), no preperation is needed.
+Patient preparation. The patient should take nothing by mouth for 8 hours preceding the examination. If fluid is essential to prevent dehydration, only water should be given. If symptoms are acute, proceed with the examination. Infants — clinical condition permitting — should be given nothing by mouth for 3 hours preceding the examination.
+For acutely ill patients (e.g., trauma, sudden abdominal pain, post-surgical pyrexial), no preparation is needed.
 
 **Position of the patient.** The patient should be supine initially and later on the right side.
 
@@ -46,7 +46,7 @@ For acutely ill patients (e.g trauma, sudden abdominal pain, post surgical pyrex
 ## Normal findings
 1. Parenchymal Characteristics
 - Echogenicity: Homogeneous, slightly hypoechoic compared to liver
-Echotexture: Fine, uniform granular pattern
+- Echotexture: Fine, uniform granular pattern
 - Capsule: Thin, hyperechoic line surrounding the organ
 
 2. Vascular Structures
@@ -59,37 +59,38 @@ Echotexture: Fine, uniform granular pattern
 - Splenic clefts: Linear indentations on the surface (may mimic lacerations)
 - Splenunculi: Larger accessory spleens (may be ectopic)
 
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', margin: '24px 0' }}>
-	<div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={img1} alt="Normal Spleen" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Normal spleen with homogeneous, fine and uniform granular pattern and a thin, hyperechoic capsule surrounding the organ</span>
-  </div>
-
-  <div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={img2} alt="Biliary Hamartoma" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Normal splenic vein and the anatomical relations of the spleen</span>
-  </div>
-</div>
+<ImageGrid images={[
+  {
+    src: img1,
+    alt: "Normal Spleen",
+    caption: "Normal spleen with homogeneous, fine and uniform granular pattern and a thin, hyperechoic capsule surrounding the organ"
+  },
+  {
+    src: img2,
+    alt: "Splenic Vein",
+    caption: "Normal splenic vein and the anatomical relations of the spleen"
+  }
+]} />
 
 ## Common pathological findings
-1. Splenomegaly: Craniocaudal length >13 cm in adults. Ultrasound may show rounded splenic contour, extension of the spleen below the left costal margin and medial displacement of the left kidney
+1. Splenomegaly: Craniocaudal length >13 cm in adults. Ultrasound may show rounded splenic contour, extension of the spleen below the left costal margin and medial displacement of the left kidney.
 
 2. Splenic cysts
 
-3. Nodular splenic lesions: Nodular lesions are often multiple. If splenic nodules are present in a patient with a known diagnosis such as lymphoma, tuberculosis, or sarcoidosis, these nodules likely represent the same disease. However, if no diagnosis has been established and the splenic nodules are an isolated finding, the diagnosis is rarely made on the imaging features alone. The most common causes of splenic nodules include infection (e.g., mycobacteria, histoplasmosis), sarcoidosis, and malignancy
+3. Nodular splenic lesions: Nodular lesions are often multiple. If splenic nodules are present in a patient with a known diagnosis such as lymphoma, tuberculosis, or sarcoidosis, these nodules likely represent the same disease. However, if no diagnosis has been established and the splenic nodules are an isolated finding, the diagnosis is rarely made on the imaging features alone. The most common causes of splenic nodules include infection (e.g., mycobacteria, histoplasmosis), sarcoidosis, and malignancy.
 
 4. Hemangioma: Are the most common primary benign neoplasm of the spleen. They are usually isolated phenomena but can be part of a generalized condition, such as hemangiomatosis or Klippel-Trenaunay-Weber syndrome. The lesions often have a well-defined echogenic appearance similar to the typical appearance of hemangiomas in the liver.
 
-5. Sicke cell disease: Sickle cell disease almost always affects the spleen. The most common splenic complications are autosplenectomy, acute sequestration, hypersplenism, massive infarction, and abscess.
+5. Sickle cell disease: Sickle cell disease almost always affects the spleen. The most common splenic complications are autosplenectomy, acute sequestration, hypersplenism, massive infarction, and abscess.
 
-6. Gaucher disease: In Gaucher disease, splenomegaly occurs almost universally, and approximately one-third of patients have multiple splenic nodules. These nodules frequently are well-defined hypoechoic lesions, but they may also be irregular, hyperechoic, or of mixed echogenicity. Pathologically, these nodules represent focal areas of Gaucher cells associated with ibrosis and infarction. In rare cases, the entire spleen may be involved, with ultrasound showing a difuse heterogeneous spleen.
+6. Gaucher disease: In Gaucher disease, splenomegaly occurs almost universally, and approximately one-third of patients have multiple splenic nodules. These nodules frequently are well-defined hypoechoic lesions, but they may also be irregular, hyperechoic, or of mixed echogenicity. Pathologically, these nodules represent focal areas of Gaucher cells associated with fibrosis and infarction. In rare cases, the entire spleen may be involved, with ultrasound showing a diffuse heterogeneous spleen.
 
-7. Gamna-Gand bodies: Gamna-Gandy bodies (Gamna nodules) are fibrosiderotic nodules that result from organized focal hemorrhagic infarcts, typically seen in congestive splenomegaly and sickle cell disease. Gamna-Gandy bodies appear as multiple punctate hyperechoic foci on ultrasound but are usually better seen on MRI.
+7. Gamna-Gandy bodies: Gamna-Gandy bodies (Gamna nodules) are fibrosiderotic nodules that result from organized focal hemorrhagic infarcts, typically seen in congestive splenomegaly and sickle cell disease. Gamna-Gandy bodies appear as multiple punctate hyperechoic foci on ultrasound but are usually better seen on MRI.
 
 8. Congenital abnormalities
 - Accessory spleens, also known as splenunculi, are common normal variants found in up to 30% of autopsies. They are typically located near the splenic hilum and have similar echogenicity as the normal spleen. Splenunculi may be confused with enlarged lymph nodes around the spleen or with masses in the tail of the pancreas. When the spleen enlarges, the accessory spleens may also enlarge.
-- Ectopic accessory spleens, described in various locations, including the pancreas and scrotum, are typically confused with abnormal masses or, in rare cases, can undergo torsion and cause acute abdominal pain. The vast majority of accessory spleens, however, are easy to recognize sonographically as small, rounded masses, usually less than 5 cm in diameter, with the same echogenicity as the spleen. CT, MRI, or, in challenging cases, scintigraphy with technetium-labeled heat-damaged red blood cells, can conirm the diagnosis.
-- A “wandering spleen” (or mobile spleen) can be found in unusual locations and may be mistaken for a mass. It is caused by absence or extreme laxity of the supporting ligaments and a long, mobile mesentery. The mobile spleen may undergo torsion, resulting in acute or chronic abdominal pain. If the diagnosis of a wandering spleen is made in a patient with acute abdominal pain, the diagnosis of torsion is supported by color flow Doppler imaging showing absence of blood low.
+- Ectopic accessory spleens, described in various locations, including the pancreas and scrotum, are typically confused with abnormal masses or, in rare cases, can undergo torsion and cause acute abdominal pain. The vast majority of accessory spleens, however, are easy to recognize sonographically as small, rounded masses, usually less than 5 cm in diameter, with the same echogenicity as the spleen. CT, MRI, or, in challenging cases, scintigraphy with technetium-labeled heat-damaged red blood cells, can confirm the diagnosis.
+- A “wandering spleen” (or mobile spleen) can be found in unusual locations and may be mistaken for a mass. It is caused by absence or extreme laxity of the supporting ligaments and a long, mobile mesentery. The mobile spleen may undergo torsion, resulting in acute or chronic abdominal pain. If the diagnosis of a wandering spleen is made in a patient with acute abdominal pain, the diagnosis of torsion is supported by color flow Doppler imaging showing absence of blood flow.
 
 9. Splenic trauma
 - Laceration: Linear hypoechoic or anechoic defect
@@ -97,38 +98,38 @@ Echotexture: Fine, uniform granular pattern
 - Subcapsular hematoma: Crescentic fluid collection compressing parenchyma
 - Free fluid: Blood in perisplenic space or Morrison's pouch
 
-<div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', margin: '24px 0' }}>
-	<div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={splenomegaly} alt="Normal Spleen" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Splenomegaly with compression of the left kidney</span>
-  </div>
-
-  <div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={spleniccyst} alt="Splenic cyst" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Central 5-cm cyst with irregular borders and a simple 6-cm cyst at the inferior portion of the spleen. Both congenital cysts and pseudocysts may have this appearance.</span>
-  </div>
-
-  <div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={hemangioma} alt="Biliary Hamartoma" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Hemangioma. Well-deined, rounded, echogenic lesion (arrow) is similar to the typical liver hemangiomas.</span>
-  </div>
-
-  <div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={splenicinfact} alt="splenic infact" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Coronal image shows a well-deined hypoechoic central area reaching the splenic capsule medial and lateral in a patient with sickle cell disease, in keeping with splenic infarct</span>
-  </div>
-
-  <div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={gaucherdisease} alt="spleen gaucher disease" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>Gaucher disease with
-Enlarged spleen containing a 2-cm heterogeneous nodule</span>
-  </div>
-
-  <div style={{ display: 'flex', flexDirection: 'column', width: '23%', minWidth: '150px' }}>
-    <Image src={gamnagandybodies} alt="gamna gandy bodies" style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px' }} />
-    <span style={{ fontSize: '0.8rem', color: '#555', marginTop: '6px' }}>The spleen shows multiple tiny echogenic foci without acoustic shadowing diffusely involving the parenchyma. These are siderotic nodules or Gamna-Gandy nodules</span>
-  </div>
-</div>
+<ImageGrid images={[
+  {
+    src: splenomegaly,
+    alt: "Splenomegaly Ultrasound",
+    caption: "Splenomegaly with compression of the left kidney"
+  },
+  {
+    src: spleniccyst,
+    alt: "Splenic cyst",
+    caption: "Central 5-cm cyst with irregular borders and a simple 6-cm cyst at the inferior portion of the spleen. Both congenital cysts and pseudocysts may have this appearance."
+  },
+  {
+    src: hemangioma,
+    alt: "Splenic Hemangioma",
+    caption: "Hemangioma. Well-defined, rounded, echogenic lesion (arrow) is similar to the typical liver hemangiomas."
+  },
+  {
+    src: splenicinfact,
+    alt: "Splenic infarct",
+    caption: "Coronal image shows a well-defined hypoechoic central area reaching the splenic capsule medial and lateral in a patient with sickle cell disease, in keeping with splenic infarct"
+  },
+  {
+    src: gaucherdisease,
+    alt: "Spleen Gaucher disease",
+    caption: "Gaucher disease with Enlarged spleen containing a 2-cm heterogeneous nodule"
+  },
+  {
+    src: gamnagandybodies,
+    alt: "Gamna-Gandy bodies",
+    caption: "The spleen shows multiple tiny echogenic foci without acoustic shadowing diffusely involving the parenchyma. These are siderotic nodules or Gamna-Gandy nodules"
+  }
+]} />
 
 ## Documentation and reporting
 A comprehensive spleen ultrasound report should include:

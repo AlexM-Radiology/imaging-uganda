@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+
+interface ImageItem {
+  src: any; // Accepts Astro local image imports
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  images: ImageItem[];
+}
+
+const { images } = Astro.props;
+---
+
+<div class="mdx-image-grid">
+  {images.map((item) => (
+    <div class="mdx-grid-item">
+      <div class="mdx-grid-image-container">
+        <Image 
+          src={item.src} 
+          alt={item.alt} 
+          class="mdx-grid-image"
+        />
+      </div>
+      <div class="mdx-grid-caption-container">
+        <span class="mdx-grid-caption">
+          {item.caption}
+        </span>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .mdx-image-grid {
+    display: grid;
+    /* Automatically handles column generation based on viewport width */
+    /* Prevents card narrowing below 240px, preventing text vertical overflow */
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    margin: 32px 0;
+    width: 100%;
+  }
+
+  .mdx-grid-item {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8fafc; /* Subtle slate-50 background for card contrast */
+    border: 1px solid #e2e8f0; /* Soft border */
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Tactile lift effect on hover */
+  .mdx-grid-item:hover {
+    transform: translateY(-0.2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    border-color: #cbd5e1;
+  }
+
+  .mdx-grid-image-container {
+    width: 100%;
+    /* Locks the aspect ratio of the image box (approx. standard medical viewport) */
+    aspect-ratio: 16 / 10; 
+    overflow: hidden;
+    background-color: #000000; /* Solid black backing mimicking ultrasound viewing monitors */
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mdx-grid-image {
+    /* Shrinks the image to entirely fit inside the container with no cropping */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .mdx-grid-item:hover .mdx-grid-image {
+    transform: scale(1.02); /* Extremely subtle zoom on hover for polish */
+  }
+
+  .mdx-grid-caption-container {
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ensures text wrapper takes up remaining height evenly */
+    justify-content: flex-start;
+  }
+
+  .mdx-grid-caption {
+    font-size: 0.825rem;
+    color: #475569; /* Accessible dark gray (slate-600) */
+    line-height: 1.45;
+    margin: 0;
+    font-weight: 450;
+    word-break: break-word; /* Prevents long medical terms from overflowing container */
+  }
+</style>
