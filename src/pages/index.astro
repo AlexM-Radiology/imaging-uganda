@@ -1,51 +1,317 @@
 ---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const recentArticles = (await getCollection('articles'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 7);
+
+const popularCases = (await getCollection('cases'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 7);
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9674508263125209"
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9674508263125209"
      crossorigin="anonymous"></script>
-		<style>
-			h1 {
-				font-size: 35px;
-			}
-			span {
-				color: rgb(0, 0, 139);
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Imaging Uganda<span>/Africa</span></h1>
-			<p>
-				We bridge the gap between radiology professionals and patients by providing high-quality educational content on medical imaging, diagnostic procedures, and radiology case studies. Whether you're a healthcare provider, student, or patient, our resources help you understand imaging techniques, conditions, and the latest advancements in radiology&period;
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+    <style>
+      html, body {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        margin: 0;
+        padding: 0;
+      }
+
+      main {
+        width: 100% !important;
+        max-width: 600px !important;
+        margin: 0 auto !important;
+        padding: 1rem !important;
+        box-sizing: border-box !important;
+      }
+
+      h1 {
+        font-size: 32px;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+        color: #000000;
+      }
+      
+      h1 span {
+        color: rgb(0, 0, 139);
+      }
+
+      .intro-text {
+        font-size: 1.05rem;
+        line-height: 1.5;
+        color: #333333;
+        margin-bottom: 2.5rem;
+      }
+
+      .section-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #000000;
+        margin: 0;
+      }
+
+      .view-all {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #007c89;
+        text-decoration: none;
+      }
+
+      /* Container block wrapper to isolate tracks and their specific dot lists */
+      .carousel-section-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .horizontal-scroll-track {
+        display: flex !important;
+        flex-direction: row !important; 
+        flex-wrap: nowrap !important; 
+        gap: 0.85rem !important; 
+        width: 100% !important;
+        overflow-x: auto !important; 
+        overflow-y: hidden !important;
+        scroll-snap-type: x mandatory !important;
+        padding-bottom: 0.5rem;
+        margin-bottom: 0.75rem; 
+        box-sizing: border-box !important;
+        -webkit-overflow-scrolling: touch !important; 
+      }
+
+      .horizontal-scroll-track::-webkit-scrollbar {
+        display: none !important;
+      }
+      .horizontal-scroll-track {
+        scrollbar-width: none !important;
+      }
+
+      .scroll-card {
+        display: flex !important; 
+        flex-direction: column !important;
+        flex: 0 0 38% !important; 
+        width: 38% !important;
+        max-width: 38% !important;
+        scroll-snap-align: start !important;
+        text-decoration: none !important;
+        color: inherit !important;
+        box-sizing: border-box !important;
+      }
+
+      .card-image-container {
+        width: 100% !important;
+        aspect-ratio: 1 / 1 !important; 
+        border-radius: 12px !important; 
+        overflow: hidden !important;
+        margin-bottom: 0.4rem;
+        background-color: #f0f0f0;
+      }
+
+      .card-image-container img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+
+      .card-title {
+        margin: 0 !important;
+        font-size: 0.85rem !important; 
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+        color: #000000 !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; 
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .scroll-card:hover .card-title {
+        color: #007c89 !important;
+      }
+
+      /* Custom Indicator Dots */
+      .carousel-indicators {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 0.35rem !important;
+        margin-bottom: 2rem !important;
+        width: 100% !important;
+        height: 10px !important;
+      }
+
+      .dot {
+        width: 6px !important;
+        height: 6px !important;
+        background-color: #cccccc !important;
+        border-radius: 50% !important;
+        display: block !important; 
+        padding: 0 !important;
+        transition: all 0.25s ease; /* Smooth swelling animation into pill form */
+      }
+
+      .dot.active {
+        width: 14px !important; 
+        border-radius: 4px !important;
+        background-color: #007c89 !important;
+      }
+
+      @media (min-width: 500px) {
+        .scroll-card {
+          flex: 0 0 28% !important;
+          width: 28% !important;
+          max-width: 28% !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>Imaging Uganda<span>/Africa</span></h1>
+      <p class="intro-text">
+        We bridge the gap between radiology professionals and patients by providing high-quality educational content on medical imaging, diagnostic procedures, and radiology case studies. Whether you're a healthcare provider, student, or patient, our resources help you understand imaging techniques, conditions, and the latest advancements in radiology.
+      </p>
+
+      <section class="carousel-section-wrapper">
+        <div class="section-header">
+          <h2>Popular Cases</h2>
+          <a href="/cases/" class="view-all">View all</a>
+        </div>
+        
+        <div class="horizontal-scroll-track class-scroll-track">
+          {
+            popularCases.map((post) => (
+              <a href={`/cases/${post.id}/`} class="scroll-card">
+                <div class="card-image-container">
+                  {post.data.heroImage ? (
+                    <Image 
+                      width={200} 
+                      height={200} 
+                      src={post.data.heroImage} 
+                      alt="" 
+                    />
+                  ) : (
+                    <div style="width:100%; height:100%; background:#e0e0e0;" />
+                  )}
+                </div>
+                <h3 class="card-title">{post.data.title}</h3>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="carousel-indicators">
+          {popularCases.map((_, index) => (
+            <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
+          ))}
+        </div>
+      </section>
+
+      <section class="carousel-section-wrapper">
+        <div class="section-header">
+          <h2>Recent Articles</h2>
+          <a href="/articles/" class="view-all">View all</a>
+        </div>
+        
+        <div class="horizontal-scroll-track class-scroll-track">
+          {
+            recentArticles.map((post) => (
+              <a href={`/articles/${post.id}/`} class="scroll-card">
+                <div class="card-image-container">
+                  {post.data.heroImage ? (
+                    <Image 
+                      width={200} 
+                      height={200} 
+                      src={post.data.heroImage} 
+                      alt="" 
+                    />
+                  ) : (
+                    <div style="width:100%; height:100%; background:#e0e0e0;" />
+                  )}
+                </div>
+                <h3 class="card-title">{post.data.title}</h3>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="carousel-indicators">
+          {recentArticles.map((_, index) => (
+            <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
+          ))}
+        </div>
+      </section>
+    </main>
+    <Footer />
+
+    <script>
+      // 1. Mouse wheel horizontal scroll handler for desktops
+      const tracks = document.querySelectorAll('.class-scroll-track');
+      tracks.forEach((track) => {
+        track.addEventListener('wheel', (evt) => {
+          if ((evt as WheelEvent).deltaY !== 0) {
+            evt.preventDefault();
+            track.scrollLeft += (evt as WheelEvent).deltaY;
+          }
+        }, { passive: false });
+      });
+
+      // 2. Dynamic Scroll Dot Indicator Handler
+      const sections = document.querySelectorAll('.carousel-section-wrapper');
+
+      sections.forEach((section) => {
+        const track = section.querySelector('.horizontal-scroll-track');
+        const dots = section.querySelectorAll('.dot');
+        const cards = section.querySelectorAll('.scroll-card');
+
+        if (!track || dots.length === 0 || cards.length === 0) return;
+
+        // Set up an intersection observer configured specifically for horizontal box bounds
+        const observerOptions = {
+          root: track,
+          threshold: 0.6, // Fire changes when card occupies 60% of track focus view frame
+          rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Get index position of active visible card
+              const cardIndex = Array.from(cards).indexOf(entry.target);
+              
+              if (cardIndex !== -1 && dots[cardIndex]) {
+                // Clear active styles from sister indicators
+                dots.forEach(dot => dot.classList.remove('active'));
+                // Toggle active style configuration onto highlighted tracking dot
+                dots[cardIndex].classList.add('active');
+              }
+            }
+          });
+        }, observerOptions);
+
+        // Tell observer target profile to dynamically monitor all slides
+        cards.forEach(card => observer.observe(card));
+      });
+    </script>
+  </body>
 </html>
