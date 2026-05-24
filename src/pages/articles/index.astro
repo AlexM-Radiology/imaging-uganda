@@ -20,9 +20,10 @@ const posts = (await getCollection('articles')).sort(
     <style>
       main {
         width: 100%;
-        max-width: 600px; /* Aligns with a clean, readable mobile/desktop stream layout */
+        max-width: 600px;
         margin: 0 auto;
         padding: 1rem;
+        box-sizing: border-box;
       }
       ul {
         display: flex;
@@ -32,12 +33,16 @@ const posts = (await getCollection('articles')).sort(
         margin: 0;
         padding: 0;
       }
+      ul li {
+        width: 100%;
+      }
       ul li a {
         display: flex;
         align-items: flex-start;
         gap: 1.5rem;
         text-decoration: none;
         color: inherit;
+        width: 100%;
       }
       .image-wrapper {
         flex-shrink: 0;
@@ -48,19 +53,20 @@ const posts = (await getCollection('articles')).sort(
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 16px; /* Smooth rounded corners matching the reference image */
+        border-radius: 16px;
       }
       .content-wrapper {
         display: flex;
         flex-direction: column;
         gap: 0.35rem;
         justify-content: center;
+        min-width: 0; /* Prevents text from forcing wide containers and blowing out the layout */
       }
       .category {
         margin: 0;
         font-size: 0.95rem;
         font-weight: 600;
-        color: #007c89; /* Teal/cyan brand color from the screenshot */
+        color: #007c89;
         text-transform: capitalize;
       }
       .title {
@@ -69,21 +75,28 @@ const posts = (await getCollection('articles')).sort(
         font-weight: 700;
         line-height: 1.3;
         color: #000000;
+        word-wrap: break-word; /* Ensures long technical words don't overflow */
       }
       
-      /* Hover effects */
+      /* Hover states */
       ul li a:hover .title {
         color: #007c89; 
       }
 
-      /* Responsive adjustment for extra tight mobile viewports */
-      @media (max-width: 400px) {
+      /* Mobile optimizations to prevent horizontal scrolling */
+      @media (max-width: 600px) {
+        ul {
+          gap: 1.5rem;
+        }
+        ul li a {
+          gap: 1rem;
+        }
         .image-wrapper {
           width: 90px;
           height: 90px;
         }
         .title {
-          font-size: 1.1rem;
+          font-size: 1.05rem;
         }
       }
     </style>
