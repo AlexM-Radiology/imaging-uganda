@@ -1,0 +1,26 @@
+---
+// src/components/AdSense.astro
+interface Props {
+  slot: string;
+  format?: 'auto' | 'fluid' | 'rectangle';
+  responsive?: 'true' | 'false';
+}
+
+const { slot, format = 'auto', responsive = 'true' } = Astro.props;
+---
+
+<div class="ad-container" style="margin: 2rem 0; text-align: center;">
+  <!-- The AdSense Ins Tag -->
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-9674508263125209"
+       data-ad-slot={slot}
+       data-ad-format={format}
+       data-full-width-responsive={responsive}>
+  </ins>
+  
+  <!-- Trigger script for this specific slot -->
+  <script is:inline>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
