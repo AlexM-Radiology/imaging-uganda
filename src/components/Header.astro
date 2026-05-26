@@ -1,53 +1,110 @@
 ---
-import { SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
+import { SITE_TITLE } from "../consts";
+import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header>
-	<nav>
-		<h2 class="site-title"><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/articles">Articles</HeaderLink>
-			<HeaderLink href="/cases">Cases</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-	</nav>
+<header id="main-header">
+  <nav>
+    <h2 class="site-title"><a href="/">{SITE_TITLE}</a></h2>
+    <div class="internal-links">
+      <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/articles">Articles</HeaderLink>
+      <HeaderLink href="/cases">Cases</HeaderLink>
+      <HeaderLink href="/about">About</HeaderLink>
+    </div>
+  </nav>
 </header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: #2c3e50;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
-	nav a {
-		padding: 1em 0.5em;
-		color: white;
-		border-bottom: 4px solid transparent;
-		text-decoration: none;
-	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
-	}
-	@media (max-width: 555px) {
-		.site-title {
-			display: none;
-		}
-	}
+<script>
+  let lastScrollY = window.scrollY;
+  const header = document.getElementById("main-header");
+
+  window.addEventListener("scroll", () => {
+    if (!header) return;
+
+    const currentScrollY = window.scrollY;
+
+    // Don't hide the header if we are close to the top of the page
+    if (currentScrollY <= 80) {
+      header.classList.remove("scroll-down");
+      header.classList.remove("scroll-up");
+      return;
+    }
+
+    if (currentScrollY > lastScrollY) {
+      // Scrolling Down
+      header.classList.add("scroll-down");
+      header.classList.remove("scroll-up");
+    } else {
+      // Scrolling Up
+      header.classList.add("scroll-up");
+      header.classList.remove("scroll-down");
+    }
+
+    lastScrollY = currentScrollY;
+  });
+</script>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* This forces the blue bar to stretch full-screen */
+    z-index: 1000;
+    margin: 0;
+    padding: 0; /* Removed horizontal padding from here */
+    background: #2c3e50;
+    box-shadow: 0 2px 8px rgba(var(--black), 15%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  header:global(.scroll-down) {
+    transform: translateY(-100%);
+  }
+
+  header:global(.scroll-up) {
+    transform: translateY(0);
+  }
+
+  h2.site-title {
+    margin: 0;
+    font-size: 1.2em;
+  }
+
+  h2.site-title a {
+    color: #ffffff !important;
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* Forces padding to be calculated inside the width, preventing overflow */
+    box-sizing: border-box;
+
+    width: 100%;
+    /* Changed to 1em to give it clean padding without forcing elements off-screen */
+    padding: 0 1em;
+    margin: 0 auto;
+  }
+
+  nav a {
+    padding: 1em 0.5em;
+    color: #ffffff;
+    border-bottom: 4px solid transparent;
+    text-decoration: none;
+  }
+
+  nav a.active {
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 555px) {
+    .site-title {
+      display: none;
+    }
+  }
 </style>
