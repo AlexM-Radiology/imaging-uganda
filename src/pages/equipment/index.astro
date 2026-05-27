@@ -89,7 +89,10 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
   <body>
     <Header />
     <main>
-      <h2>Medical Equipment Marketplace</h2>
+      <div class="section-header">
+        <h2>Medical Equipment</h2>
+        <p>Browse our curated collection of premium medical devices from trusted manufacturers</p>
+      </div>
       <ul class="grid">
         {products.map((product) => (
           <li class="card">
