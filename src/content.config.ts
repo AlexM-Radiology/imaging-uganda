@@ -34,4 +34,20 @@ const cases = defineCollection({
 		}),
 });
 
-export const collections = { articles, cases };
+const equipment = defineCollection({
+  loader: glob({ base: './src/content/equipment', pattern: '**/*.{md,mdx}' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      price: z.number(),
+      currency: z.string().default('USD'),
+      heroImage: z.optional(image()),
+      category: z.string().optional(),
+      inStock: z.boolean().default(true),
+      phoneNumber: z.string(), // Your WhatsApp number with country code (e.g., "1234567890")
+      // No need for buyLink anymore - we'll generate it dynamically
+    }),
+});
+
+export const collections = { articles, cases, equipment };

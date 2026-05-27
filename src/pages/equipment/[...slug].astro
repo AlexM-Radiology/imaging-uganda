@@ -1,0 +1,100 @@
+---
+// src/pages/equipment/[...slug].astro
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+  const products = await getCollection('equipment');
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: product,
+  }));
+}
+type Props = CollectionEntry<'equipment'>;
+
+const product = Astro.props;
+const { title, description, price, currency, heroImage, phoneNumber, inStock } = product.data;
+const { Content } = await render(product);
+
+// Helper function to generate WhatsApp link
+function getWhatsAppLink(phoneNumber: string, title: string, price: number, currency: string) {
+  const message = `Hello, I'm interested in purchasing the ${title} (${currency} ${price.toLocaleString()}). Could you please provide more information?`;
+  const encodedMessage = encodeURIComponent(message);
+  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+    <style>
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 6em 1em;
+      }
+      .product-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+      @media (max-width: 768px) {
+        .product-container { grid-template-columns: 1fr; gap: 1.5rem; }
+      }
+      .product-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+      }
+      .buy-btn {
+        display: inline-block;
+        background: #25D366; /* WhatsApp green */
+        color: white;
+        padding: 0.8rem 2rem;
+        text-decoration: none;
+        font-weight: 700;
+        border-radius: 8px;
+        margin: 1rem 0;
+        transition: background 0.3s;
+      }
+      .buy-btn:hover {
+        background: #128C7E;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <div class="product-container">
+        <div class="product-image">
+          {heroImage && <Image src={heroImage} alt={title} width={600} height={600} />}
+        </div>
+        <div class="product-details">
+          <h1>{title}</h1>
+          <p class="price" style="font-size: 2rem; font-weight: bold; color: #007c89;">
+            {currency} {price.toLocaleString()}
+          </p>
+          
+          {inStock ? (
+            <a href={getWhatsAppLink(phoneNumber, title, price, currency)} target="_blank" rel="noopener noreferrer" class="buy-btn">
+              Inquire on WhatsApp
+            </a>
+          ) : (
+            <p style="color: red; font-weight: bold;">Out of Stock</p>
+          )}
+          
+          <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+          
+          <div class="prose">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
