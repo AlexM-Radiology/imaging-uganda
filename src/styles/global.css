@@ -17,6 +17,13 @@
     0 16px 32px rgba(var(--gray), 33%);
 }
 
+/* Global Reset Safety: Forces padding to stay within elements instead of expanding them */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   font-family: var(--font-atkinson);
   margin: 0;
@@ -24,11 +31,18 @@ body {
   text-align: left;
   background: linear-gradient(var(--gray-gradient)) no-repeat;
   background-size: 100% 600px;
+  
+  /* Aggressive word-wrapping guards to stop long strings/URLs from breaking layout */
   word-wrap: break-word;
   overflow-wrap: break-word;
+  word-break: break-word;
+  
+  /* Hard stop block for page-level horizontal scrolling */
+  overflow-x: hidden;
+  
   color: rgb(var(--gray-dark));
   font-size: 18px;
-  line-height: 1.6; /* Increased slightly for better article readability */
+  line-height: 1.6;
 }
 
 main {
@@ -50,7 +64,7 @@ h6 {
 }
 
 h1 {
-  font-size: 2.5em; /* Adjusted down slightly from 3.052em to look cleaner on mobile devices */
+  font-size: 2.5em;
 }
 
 h2 {
@@ -83,7 +97,7 @@ a:hover {
 }
 
 p {
-  margin: 0 0 1.2rem 0; /* Standard paragraph spacing rule */
+  margin: 0 0 1.2rem 0;
 }
 
 .prose p {
@@ -99,8 +113,11 @@ input {
   font-size: 16px;
 }
 
+/* Responsive Table containment */
 table {
   width: 100%;
+  display: block;
+  overflow-x: auto;
   border-collapse: collapse;
   margin-bottom: 1rem;
 }
@@ -120,10 +137,14 @@ code {
   font-size: 0.9em;
 }
 
+/* Responsive Code block containment */
 pre {
   padding: 1.5em;
   border-radius: 8px;
-  overflow-x: auto; /* Prevents code blocks from breaking layout on narrow screens */
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 pre > code {
@@ -149,7 +170,7 @@ hr {
     font-size: 17px;
   }
   main {
-    padding: 1em; /* Ensures text doesn't touch the absolute edge of mobile displays */
+    padding: 1em; /* Leaves comfortable spacing at screen borders on phones */
   }
 }
 
