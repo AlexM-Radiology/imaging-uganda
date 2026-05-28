@@ -29,8 +29,9 @@ body {
   margin: 0;
   padding: 0;
   text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
+  
+  /* Changed background from gradient to pure white */
+  background: #ffffff;
   
   /* Aggressive word-wrapping guards to stop long strings/URLs from breaking layout */
   word-wrap: break-word;
