@@ -9,12 +9,15 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const products = await getCollection('equipment');
 
-// Helper function to generate WhatsApp link
-function getWhatsAppLink(phoneNumber: string, title: string, price: number, currency: string) {
-  const message = `Hello, I'm interested in purchasing the ${title} (${currency} ${price.toLocaleString()}). Could you please provide more information?`;
+// 1. Updated helper function to accept and append the specific product URL
+function getWhatsAppLink(phoneNumber: string, title: string, price: number, currency: string, productUrl: string) {
+  const message = `Hello, I'm interested in purchasing the ${title} (${currency} ${price.toLocaleString()}). \n\nProduct Link: ${productUrl}\n\nCould you please provide more information?`;
   const encodedMessage = encodeURIComponent(message);
   return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 }
+
+// 2. Get the base domain origin dynamically (works for localhost and production)
+const siteOrigin = Astro.url.origin;
 ---
 
 <!doctype html>
@@ -94,24 +97,45 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
         <p>Browse our curated collection of premium medical devices from trusted manufacturers</p>
       </div>
       <ul class="grid">
-        {products.map((product) => (
-          <li class="card">
-            <a href={`/equipment/${product.id}/`}>
-              <div class="image-wrapper">
-                {product.data.heroImage && (
-                  <Image width={400} height={300} src={product.data.heroImage} alt={product.data.title} />
-                )}
-              </div>
-            </a>
-            <div class="info">
-              <h3 class="title">{product.data.title}</h3>
-              <p class="price">{product.data.currency} {product.data.price.toLocaleString()}</p>
-              <a href={getWhatsAppLink(product.data.phoneNumber, product.data.title, product.data.price, product.data.currency)} class="btn" target="_blank" rel="noopener noreferrer">
-                Inquire on WhatsApp
+        {products.map((product) => {
+          // 3. Construct the precise URL for this specific item inside the map loop
+          const specificProductUrl = `${siteOrigin}/equipment/${product.id}/`;
+
+          return (
+            <li class="card">
+              <a href={`/equipment/${product.id}/`}>
+                <div class="image-wrapper">
+                  {product.data.images && product.data.images.length > 0 ? (
+                    <Image 
+                      width={400} 
+                      height={300} 
+                      src={product.data.images[0]} 
+                      alt={product.data.title} 
+                    />
+                  ) : (
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #94a3b8;">
+                      No Image available
+                    </div>
+                  )}
+                </div>
               </a>
-            </div>
-          </li>
-        ))}
+              <div class="info">
+                <h3 class="title">{product.data.title}</h3>
+                <p class="price">{product.data.currency} {product.data.price.toLocaleString()}</p>
+                
+                {/* 4. Pass the newly built 'specificProductUrl' into the button generator */}
+                <a 
+                  href={getWhatsAppLink(product.data.phoneNumber, product.data.title, product.data.price, product.data.currency, specificProductUrl)} 
+                  class="btn" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  Inquire on WhatsApp
+                </a>
+              </div>
+            </li>
+          );
+        })}
       </ul>
     </main>
     <Footer />
