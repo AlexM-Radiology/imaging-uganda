@@ -1,37 +1,38 @@
+// src/content.config.ts
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 const articles = defineCollection({
-	// Load Markdown and MDX files in the `src/content/articles/` directory.
-	loader: glob({ base: './src/content/articles', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-			category: z.string().optional(),
-		}),
+  // Load Markdown and MDX files in the `src/content/articles/` directory.
+  loader: glob({ base: './src/content/articles', pattern: '**/*.{md,mdx}' }),
+  // Type-check frontmatter using a schema
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      // Transform string to Date object
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      heroImage: z.optional(image()),
+      category: z.string().optional(),
+    }),
 });
 
 const cases = defineCollection({
-	// Load Markdown and MDX files in the `src/content/cases/` directory.
-	loader: glob({ base: './src/content/cases', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-			category: z.string().optional(),
-		}),
+  // Load Markdown and MDX files in the `src/content/cases/` directory.
+  loader: glob({ base: './src/content/cases', pattern: '**/*.{md,mdx}' }),
+  // Type-check frontmatter using a schema
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      // Transform string to Date object
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      heroImage: z.optional(image()),
+      category: z.string().optional(),
+    }),
 });
 
 const equipment = defineCollection({
@@ -42,11 +43,10 @@ const equipment = defineCollection({
       description: z.string(),
       price: z.number(),
       currency: z.string().default('USD'),
-      heroImage: z.optional(image()),
+      images: z.array(image()).default([]), 
       category: z.string().optional(),
       inStock: z.boolean().default(true),
-      phoneNumber: z.string(), // Your WhatsApp number with country code (e.g., "1234567890")
-      // No need for buyLink anymore - we'll generate it dynamically
+      phoneNumber: z.string(), // Your WhatsApp number with country code (e.g., "+256786467098")
     }),
 });
 

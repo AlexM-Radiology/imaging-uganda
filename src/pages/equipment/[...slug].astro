@@ -16,10 +16,10 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'equipment'>;
 
 const product = Astro.props;
-const { title, description, price, currency, heroImage, phoneNumber, inStock } = product.data;
+// 1. Swap 'heroImage' for 'images' (assuming an array of images in your markdown/MDX frontmatter)
+const { title, description, price, currency, images = [], phoneNumber, inStock } = product.data;
 const { Content } = await render(product);
 
-// Helper function to generate WhatsApp link
 function getWhatsAppLink(phoneNumber: string, title: string, price: number, currency: string) {
   const message = `Hello, I'm interested in purchasing the ${title} (${currency} ${price.toLocaleString()}). Could you please provide more information?`;
   const encodedMessage = encodeURIComponent(message);
@@ -45,14 +45,42 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
       @media (max-width: 768px) {
         .product-container { grid-template-columns: 1fr; gap: 1.5rem; }
       }
-      .product-image img {
+      
+      /* --- CAROUSEL STYLES --- */
+      .carousel-wrapper {
+        position: relative;
         width: 100%;
-        height: auto;
+        overflow: hidden;
         border-radius: 12px;
       }
+      .carousel {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        /* Hides scrollbar for IE, Edge and Firefox */
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+      }
+      /* Hides scrollbar for Chrome, Safari and Opera */
+      .carousel::-webkit-scrollbar {
+        display: none;
+      }
+      .carousel-item {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+      }
+      .carousel-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+      }
+      /* ----------------------- */
+
       .buy-btn {
         display: inline-block;
-        background: #25D366; /* WhatsApp green */
+        background: #25D366;
         color: white;
         padding: 0.8rem 2rem;
         text-decoration: none;
@@ -70,11 +98,25 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
     <Header />
     <main>
       <div class="product-container">
+        
         <div class="product-image">
-          {heroImage && <Image src={heroImage} alt={title} width={600} height={600} />}
+          {images && images.length > 0 ? (
+            <div class="carousel-wrapper" id="carouselWrapper">
+              <div class="carousel" id="imageCarousel">
+                {images.map((img: any, index: number) => (
+                  <div class="carousel-item">
+                    <Image src={img} alt={`${title} - Image ${index + 1}`} width={600} height={600} loading={index === 0 ? "eager" : "lazy"} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <p>No images available</p>
+          )}
         </div>
+
         <div class="product-details">
-          <h1 style="font-size: 1.8rem";>{title}</h1>
+          <h1 style="font-size: 1.8rem;">{title}</h1>
           <p class="price" style="font-size: 1.8rem; font-weight: bold; color: #007c89;">
             {currency} {price.toLocaleString()}
           </p>
@@ -96,5 +138,47 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
       </div>
     </main>
     <Footer />
+
+    <script>
+      const carousel = document.getElementById('imageCarousel');
+      const wrapper = document.getElementById('carouselWrapper');
+      
+      if (carousel && wrapper) {
+        let isPaused = false;
+        const intervalTime = 3000; // 3 seconds
+
+        const autoSwipe = () => {
+          if (isPaused) return;
+
+          const itemWidth = carousel.clientWidth;
+          const maxScrollLeft = carousel.scrollWidth - itemWidth;
+          
+          // If we're at the end, loop back to the first image, otherwise swipe right
+          if (carousel.scrollLeft >= maxScrollLeft - 5) {
+            carousel.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
+          }
+        };
+
+        // Set up the interval
+        let timer = setInterval(autoSwipe, intervalTime);
+
+        // Pause on mouse hover (Desktop) or touch hold (Mobile)
+        const pauseTimer = () => { isPaused = true; };
+        const resumeTimer = () => { isPaused = false; };
+
+        wrapper.addEventListener('mouseenter', pauseTimer);
+        wrapper.addEventListener('mouseleave', resumeTimer);
+        wrapper.addEventListener('touchstart', pauseTimer, { passive: true });
+        wrapper.addEventListener('touchend', resumeTimer);
+        
+        // Safety check: Reset timer if user manually swipes via touch/trackpad to avoid jerky double-swipes
+        carousel.addEventListener('scroll', () => {
+          clearInterval(timer);
+          timer = setInterval(autoSwipe, intervalTime);
+        }, { passive: true });
+      }
+    </script>
   </body>
 </html>
