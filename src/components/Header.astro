@@ -6,10 +6,17 @@ import HeaderLink from "./HeaderLink.astro";
 <header id="main-header">
   <nav>
     <h2 class="site-title"><a href="/">{SITE_TITLE}</a></h2>
-    <div class="internal-links">
+    
+    <!-- Hamburger Button -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+
+    <div class="internal-links" id="nav-links">
       <HeaderLink href="/">Home</HeaderLink>
       <HeaderLink href="/articles">Articles</HeaderLink>
       <HeaderLink href="/cases">Cases</HeaderLink>
+      <HeaderLink href="/equipment">Equipment</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
     </div>
   </nav>
@@ -18,9 +25,25 @@ import HeaderLink from "./HeaderLink.astro";
 <script>
   let lastScrollY = window.scrollY;
   const header = document.getElementById("main-header");
+  const menuToggle = document.getElementById("menu-toggle");
+  const navLinks = document.getElementById("nav-links");
 
+  // --- Hamburger Menu Logic ---
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+      menuToggle.classList.toggle("active");
+      navLinks.classList.toggle("show");
+    });
+  }
+
+  // --- Scroll Logic ---
   window.addEventListener("scroll", () => {
     if (!header) return;
+
+    // Prevents header from hiding if mobile menu is currently open
+    if (navLinks?.classList.contains("show")) return;
 
     const currentScrollY = window.scrollY;
 
@@ -50,12 +73,12 @@ import HeaderLink from "./HeaderLink.astro";
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%; /* This forces the blue bar to stretch full-screen */
+    width: 100%;
     z-index: 1000;
     margin: 0;
-    padding: 0; /* Removed horizontal padding from here */
+    padding: 0;
     background: #2c3e50;
-    box-shadow: 0 2px 8px rgba(var(--black), 15%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 15%);
     transition: transform 0.3s ease-in-out;
   }
 
@@ -70,6 +93,7 @@ import HeaderLink from "./HeaderLink.astro";
   h2.site-title {
     margin: 0;
     font-size: 1.2em;
+    z-index: 1001;
   }
 
   h2.site-title a {
@@ -81,14 +105,16 @@ import HeaderLink from "./HeaderLink.astro";
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    /* Forces padding to be calculated inside the width, preventing overflow */
     box-sizing: border-box;
-
     width: 100%;
-    /* Changed to 1em to give it clean padding without forcing elements off-screen */
     padding: 0 1em;
     margin: 0 auto;
+    min-height: 60px;
+  }
+
+  .internal-links {
+    display: flex;
+    gap: 1rem;
   }
 
   nav a {
@@ -102,7 +128,92 @@ import HeaderLink from "./HeaderLink.astro";
     border-bottom-color: var(--accent);
   }
 
-  @media (max-width: 555px) {
+  /* --- Hamburger Button Styles --- */
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1rem;
+    z-index: 1001;
+  }
+
+  .hamburger {
+    position: relative;
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #ffffff;
+    transition: background 0.2s ease-in-out;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background: #ffffff;
+    transition: transform 0.2s ease-in-out, top 0.2s ease-in-out;
+  }
+
+  .hamburger::before { top: -6px; }
+  .hamburger::after { top: 6px; }
+
+  /* Hamburger to 'X' animation */
+  .menu-toggle.active .hamburger {
+    background: transparent;
+  }
+  .menu-toggle.active .hamburger::before {
+    top: 0;
+    transform: rotate(45deg);
+  }
+  .menu-toggle.active .hamburger::after {
+    top: 0;
+    transform: rotate(-45deg);
+  }
+
+  /* --- Responsive Breakpoint --- */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .internal-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #2c3e50;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 10%);
+    }
+
+    .internal-links.show {
+      max-height: 350px; /* Safe capacity for all 5 navigational links */
+    }
+
+    nav a {
+      display: block;
+      padding: 1rem 2rem;
+      border-bottom: none;
+      border-left: 4px solid transparent;
+    }
+
+    nav a.active {
+      border-bottom-color: transparent;
+      border-left-color: var(--accent);
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+
+  @media (max-width: 350px) {
     .site-title {
       display: none;
     }
