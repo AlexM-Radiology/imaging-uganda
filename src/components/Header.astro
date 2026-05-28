@@ -7,7 +7,6 @@ import HeaderLink from "./HeaderLink.astro";
   <nav>
     <h2 class="site-title"><a href="/">{SITE_TITLE}</a></h2>
     
-    <!-- Hamburger Button -->
     <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">
       <span class="hamburger"></span>
     </button>
@@ -28,15 +27,37 @@ import HeaderLink from "./HeaderLink.astro";
   const menuToggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
+  // Helper function to explicitly close the menu
+  function closeMenu() {
+    if (menuToggle && navLinks) {
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.classList.remove("active");
+      navLinks.classList.remove("show");
+    }
+  }
+
   // --- Hamburger Menu Logic ---
   if (menuToggle && navLinks) {
-    menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener("click", (event) => {
+      // Prevents the document listener from immediately closing the menu on toggle click
+      event.stopPropagation();
+      
       const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
       menuToggle.setAttribute("aria-expanded", String(!isExpanded));
       menuToggle.classList.toggle("active");
       navLinks.classList.toggle("show");
     });
   }
+
+  // --- Click Outside to Close Logic ---
+  document.addEventListener("click", (event) => {
+    const target = event.target as Node;
+    
+    // Check if the menu is open and the click target is entirely outside the header container
+    if (navLinks?.classList.contains("show") && header && !header.contains(target)) {
+      closeMenu();
+    }
+  });
 
   // --- Scroll Logic ---
   window.addEventListener("scroll", () => {
