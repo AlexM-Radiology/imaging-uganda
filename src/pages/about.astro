@@ -1,6 +1,12 @@
 ---
 import AboutHeroImage from '../assets/lameck-5.jpg';
 import Layout from '../layouts/ArticlesPost.astro';
+import { Image } from 'astro:assets';
+
+// Importing local founder images from src/assets/
+import pishonImg from '../assets/pishon-1.jpg';
+import lameckImg from '../assets/lameck-1.jpg'; // Reusing your known local asset, update filename if needed
+import henryImg from '../assets/henry-1.jpg';  // Placeholder asset link, update to henry's photo name later
 ---
 
 <Layout
@@ -26,29 +32,25 @@ import Layout from '../layouts/ArticlesPost.astro';
   <h2 style="font-size: 26px; color: rgb(0, 0, 139); margin-bottom: 0.5rem;">Our Founders</h2>
   <p style="color: #666; margin-bottom: 2rem;">Select a founder below to view their full professional curriculum vitae (CV).</p>
   
-  <!-- Founders Grid Layout -->
   <div class="founders-grid">
-    <!-- Founder 1 -->
     <a href="/cvs/mwanje-pishon" class="founder-card" title="View CV of Mwanje Pishon">
-      <div class="avatar-placeholder">🩻</div>
+      <Image src={pishonImg} alt="Mwanje Pishon" class="founder-avatar" />
       <h3>Mwanje Pishon</h3>
       <p class="role">Medical Imaging Technologist (MIT) & Co-Founder</p>
       <p class="bio">Mwanje Pishon is a Ugandan by nationality male gender. I am a registered medical imaging technologist by Allied Health Profession Council-AHPC...</p>
       <span class="cv-link-text">View CV &rarr;</span>
     </a>
 
-    <!-- Founder 2 -->
     <a href="/cvs/lameck" class="founder-card" title="View CV of lameckx">
-      <div class="avatar-placeholder">🩺</div>
+      <Image src={lameckImg} alt="Lameck" class="founder-avatar" />
       <h3>LAMECK</h3>
       <p class="role">Medical Imaging Technologist (MIT) & Co-Founder</p>
       <p class="bio">A God fearing, industrious, highly skilled and reliable Radiographer with leadership and organizational skills. Over 13 years experience in diagno...</p>
       <span class="cv-link-text">View CV &rarr;</span>
     </a>
 
-    <!-- Founder 3 -->
     <a href="/cvs/ssenyonga-henr" class="founder-card" title="View CV of Ssenyonga Henr">
-      <div class="avatar-placeholder">🧬</div>
+      <Image src={henryImg} alt="Ssenyonga Henry" class="founder-avatar" />
       <h3>Ssenyonga Henry</h3>
       <p class="role">Medical Imaging Technologist (MIT) & Co-Founder</p>
       <p class="bio">Ugandan by nationality male gender. I am a registered medical radiographer. I diagnose using the following imaging modalities; ultras...</p>
@@ -82,19 +84,17 @@ import Layout from '../layouts/ArticlesPost.astro';
     border-color: rgb(0, 0, 139);
     box-shadow: 0 4px 12px rgba(0, 0, 139, 0.08);
   }
-  .avatar-placeholder {
-    width: 70px;
-    height: 70px;
-    background: rgba(0, 0, 139, 0.08);
-    color: rgb(0, 0, 139);
-    font-size: 28px;
-    line-height: 70px;
+  .founder-avatar {
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
+    object-fit: cover;
     margin-bottom: 1rem;
-    transition: background 0.2s ease;
+    border: 2px solid rgba(0, 0, 139, 0.1);
+    transition: border-color 0.2s ease;
   }
-  .founder-card:hover .avatar-placeholder {
-    background: rgba(0, 0, 139, 0.15);
+  .founder-card:hover .founder-avatar {
+    border-color: rgb(0, 0, 139);
   }
   .founder-card h3 {
     margin: 0.5rem 0 0.25rem 0;
