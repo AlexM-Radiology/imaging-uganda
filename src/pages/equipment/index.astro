@@ -1,22 +1,13 @@
 ---
-// src/pages/equipment/index.astro
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, USD_TO_UGX, DEFAULT_CURRENCY } from '../../consts';
+import { formatProductPrice, getWhatsAppLink } from '../../utils/equipment';
 
 const products = await getCollection('equipment');
-
-// 1. Updated helper function to accept and append the specific product URL
-function getWhatsAppLink(phoneNumber: string, title: string, price: number, currency: string, productUrl: string) {
-  const message = `Hello, I'm interested in purchasing the ${title} (${currency} ${price.toLocaleString()}). \n\nProduct Link: ${productUrl}\n\nCould you please provide more information?`;
-  const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-}
-
-// 2. Get the base domain origin dynamically (works for localhost and production)
 const siteOrigin = Astro.url.origin;
 ---
 
@@ -98,17 +89,13 @@ const siteOrigin = Astro.url.origin;
       </div>
       <ul class="grid">
         {products.map((product) => {
-          // 3. Construct the precise URL for this specific item inside the map loop
           const specificProductUrl = `${siteOrigin}/equipment/${product.id}/`;
-
-          // Determine displayed currency and convert if needed (USD -> UGX)
-          const originalCurrency = product.data.currency ?? DEFAULT_CURRENCY;
-          let displayCurrency = originalCurrency;
-          let displayPrice = product.data.price;
-          if (originalCurrency === 'USD') {
-            displayCurrency = 'UGX';
-            displayPrice = Math.round(product.data.price * USD_TO_UGX);
-          }
+          const { displayCurrency, displayPrice } = formatProductPrice(
+            product.data.price,
+            product.data.currency,
+            USD_TO_UGX,
+            DEFAULT_CURRENCY,
+          );
 
           return (
             <li class="card">
@@ -131,8 +118,6 @@ const siteOrigin = Astro.url.origin;
               <div class="info">
                 <h3 class="title">{product.data.title}</h3>
                 <p class="price">{displayCurrency} {displayPrice.toLocaleString()}</p>
-                
-                {/* 4. Pass the newly built 'specificProductUrl' into the button generator */}
                 <a 
                   href={getWhatsAppLink(product.data.phoneNumber, product.data.title, displayPrice, displayCurrency, specificProductUrl)} 
                   class="btn" 

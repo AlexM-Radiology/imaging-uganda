@@ -1,11 +1,11 @@
 ---
-// src/pages/equipment/[...slug].astro
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { Image } from 'astro:assets';
 import { USD_TO_UGX, DEFAULT_CURRENCY } from '../../consts';
+import { formatProductPrice, getWhatsAppLink } from '../../utils/equipment';
 
 export async function getStaticPaths() {
   const products = await getCollection('equipment');
@@ -19,25 +19,13 @@ type Props = CollectionEntry<'equipment'>;
 const product = Astro.props;
 const { title, description, price, currency, images = [], phoneNumber, inStock } = product.data;
 const { Content } = await render(product);
-
-// 1. Get the current page's absolute URL dynamically
 const currentUrl = Astro.url.href;
-
-// Determine displayed currency and convert if needed (USD -> UGX)
-const originalCurrency = currency ?? DEFAULT_CURRENCY;
-let displayCurrency = originalCurrency;
-let displayPrice = price;
-if (originalCurrency === 'USD') {
-  displayCurrency = 'UGX';
-  displayPrice = Math.round(price * USD_TO_UGX);
-}
-
-// 2. Updated helper function to accept and append the page URL
-function getWhatsAppLink(phoneNumber: string, title: string, price: number, currency: string, productUrl: string) {
-  const message = `Hello, I'm interested in purchasing the ${title} (${currency} ${price.toLocaleString()}). \n\nProduct Link: ${productUrl}\n\nCould you please provide more information?`;
-  const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-}
+const { displayCurrency, displayPrice } = formatProductPrice(
+  price,
+  currency,
+  USD_TO_UGX,
+  DEFAULT_CURRENCY,
+);
 ---
 
 <!doctype html>
@@ -58,8 +46,6 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
       @media (max-width: 768px) {
         .product-container { grid-template-columns: 1fr; gap: 1.5rem; }
       }
-      
-      /* --- CAROUSEL STYLES --- */
       .carousel-wrapper {
         position: relative;
         width: 100%;
@@ -71,8 +57,8 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
-        -ms-overflow-style: none;  
-        scrollbar-width: none;  
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
       .carousel::-webkit-scrollbar {
         display: none;
@@ -87,8 +73,6 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
         display: block;
         object-fit: contain;
       }
-      /* ----------------------- */
-
       .buy-btn {
         display: inline-block;
         background: #25D366;
@@ -109,7 +93,6 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
     <Header />
     <main>
       <div class="product-container">
-        
         <div class="product-image">
           {images && images.length > 0 ? (
             <div class="carousel-wrapper" id="carouselWrapper">
@@ -131,18 +114,14 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
           <p class="price" style="font-size: 1.8rem; font-weight: bold; color: #007c89;">
             {displayCurrency} {displayPrice.toLocaleString()}
           </p>
-          
           {inStock ? (
-            /* 3. Pass 'currentUrl' as the fifth argument here */
             <a href={getWhatsAppLink(phoneNumber, title, displayPrice, displayCurrency, currentUrl)} target="_blank" rel="noopener noreferrer" class="buy-btn">
               Inquire on WhatsApp
             </a>
           ) : (
             <p style="color: red; font-weight: bold;">Out of Stock</p>
           )}
-          
           <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
-          
           <div class="prose">
             <Content />
           </div>
@@ -154,34 +133,26 @@ function getWhatsAppLink(phoneNumber: string, title: string, price: number, curr
     <script>
       const carousel = document.getElementById('imageCarousel');
       const wrapper = document.getElementById('carouselWrapper');
-      
       if (carousel && wrapper) {
         let isPaused = false;
         const intervalTime = 3000;
-
         const autoSwipe = () => {
           if (isPaused) return;
-
           const itemWidth = carousel.clientWidth;
           const maxScrollLeft = carousel.scrollWidth - itemWidth;
-          
           if (carousel.scrollLeft >= maxScrollLeft - 5) {
             carousel.scrollTo({ left: 0, behavior: 'smooth' });
           } else {
             carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
           }
         };
-
         let timer = setInterval(autoSwipe, intervalTime);
-
         const pauseTimer = () => { isPaused = true; };
         const resumeTimer = () => { isPaused = false; };
-
         wrapper.addEventListener('mouseenter', pauseTimer);
         wrapper.addEventListener('mouseleave', resumeTimer);
         wrapper.addEventListener('touchstart', pauseTimer, { passive: true });
         wrapper.addEventListener('touchend', resumeTimer);
-        
         carousel.addEventListener('scroll', () => {
           clearInterval(timer);
           timer = setInterval(autoSwipe, intervalTime);
