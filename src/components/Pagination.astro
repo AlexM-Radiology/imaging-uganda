@@ -1,0 +1,89 @@
+---
+const { currentPage, totalPages, basePath } = Astro.props as {
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+};
+
+const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+const prevPage = currentPage - 1;
+const nextPage = currentPage + 1;
+---
+
+{totalPages > 1 ? (
+  <nav class="pagination" aria-label="Pagination">
+    <ul>
+      {currentPage > 1 ? (
+        <li>
+          <a href={prevPage === 1 ? basePath : `${basePath}/${prevPage}`} rel="prev">
+            Previous
+          </a>
+        </li>
+      ) : null}
+
+      {pageNumbers.map((page) => (
+        <li>
+          <a
+            class={page === currentPage ? 'active' : ''}
+            href={page === 1 ? basePath : `${basePath}/${page}`}
+          >
+            {page}
+          </a>
+        </li>
+      ))}
+
+      {currentPage < totalPages ? (
+        <li>
+          <a href={`${basePath}/${nextPage}`} rel="next">
+            Next
+          </a>
+        </li>
+      ) : null}
+    </ul>
+  </nav>
+) : null}
+
+<style>
+  .pagination {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+  }
+
+  .pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 44px;
+    padding: 0 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+    color: inherit;
+    background: white;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .pagination a:hover,
+  .pagination a:focus-visible {
+    background: rgba(0, 124, 137, 0.08);
+    border-color: #007c89;
+    outline: none;
+  }
+
+  .pagination a.active {
+    background: #007c89;
+    color: white;
+    border-color: #007c89;
+  }
+</style>

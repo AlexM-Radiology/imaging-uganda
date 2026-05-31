@@ -5,10 +5,14 @@ import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 import PostList from '../../components/PostList.astro';
+import Pagination from '../../components/Pagination.astro';
 
-const posts = (await getCollection('cases')).sort(
+const PAGE_SIZE = 6;
+const allPosts = (await getCollection('cases')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const posts = allPosts.slice(0, PAGE_SIZE);
+const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
 ---
 
 <!doctype html>
@@ -21,6 +25,7 @@ const posts = (await getCollection('cases')).sort(
     <Header />
     <main>
       <PostList items={posts} routePrefix="cases" />
+      <Pagination currentPage={1} totalPages={totalPages} basePath="/cases" />
     </main>
     <Footer />
   </body>
