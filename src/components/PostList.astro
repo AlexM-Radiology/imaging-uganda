@@ -20,7 +20,8 @@ const { items, routePrefix } = Astro.props as {
           <div class="content-wrapper">
             {post.data.category && <p class="category">{post.data.category}</p>}
             <h2 class="title">{post.data.title}</h2>
-          </div>
+            {post.data.description && <p class="description">{post.data.description}</p>}
+          </div> 
         </a>
       </li>
     ))}
@@ -97,6 +98,21 @@ const { items, routePrefix } = Astro.props as {
     white-space: normal !important;
   }
 
+  .description {
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+    font-weight: 400 !important;
+    line-height: 1.4 !important;
+    color: #555555 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+
   ul li a:hover .title {
     color: #007c89 !important;
   }
@@ -114,6 +130,10 @@ const { items, routePrefix } = Astro.props as {
     }
     .title {
       font-size: 1.05rem !important;
+    }
+    .description {
+      font-size: 0.85rem !important;
+      -webkit-line-clamp: 1 !important;
     }
   }
 </style>
