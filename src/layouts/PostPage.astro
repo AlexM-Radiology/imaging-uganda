@@ -3,13 +3,37 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
 
 const { title, description, pubDate, updatedDate } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const articleSchema = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": canonicalURL,
+	},
+	"headline": title,
+	"description": description,
+	"url": canonicalURL,
+	"inLanguage": "en-US",
+	"author": {
+		"@type": "Organization",
+		"name": SITE_TITLE,
+	},
+	"publisher": {
+		"@type": "Organization",
+		"name": SITE_TITLE,
+	},
+	"datePublished": new Date(pubDate).toISOString(),
+	"dateModified": updatedDate ? new Date(updatedDate).toISOString() : new Date(pubDate).toISOString(),
+});
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} schema={articleSchema} />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9674508263125209" crossorigin="anonymous"></script>
 
     <style>
