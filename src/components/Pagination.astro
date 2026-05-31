@@ -52,26 +52,30 @@ const nextPage = currentPage + 1;
 
   .pagination ul {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
     padding: 0;
     list-style: none;
     margin: 0;
+    overflow-x: auto;
   }
 
   .pagination a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 44px;
-    height: 44px;
-    padding: 0 0.75rem;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 0.5rem;
     border-radius: 9999px;
     border: 1px solid rgba(0, 0, 0, 0.12);
     text-decoration: none;
     color: inherit;
     background: white;
     transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .pagination a:hover,
@@ -85,5 +89,20 @@ const nextPage = currentPage + 1;
     background: #007c89;
     color: white;
     border-color: #007c89;
+  }
+
+  /* Desktop: Larger buttons with more padding */
+  @media (min-width: 768px) {
+    .pagination ul {
+      gap: 0.5rem;
+      overflow-x: visible;
+    }
+
+    .pagination a {
+      min-width: 44px;
+      height: 44px;
+      padding: 0 0.75rem;
+      font-size: 1rem;
+    }
   }
 </style>
