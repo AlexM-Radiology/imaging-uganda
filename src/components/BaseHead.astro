@@ -7,6 +7,13 @@ import FallbackImage from '../assets/logo.jpg';
 import { SITE_TITLE } from '../consts';
 import { Font } from 'astro:assets';
 
+declare global {
+	interface Window {
+		dataLayer: any[];
+		gtag?: (...args: any[]) => void;
+	}
+}
+
 interface Props {
 	title: string;
 	description: string;
@@ -30,6 +37,8 @@ const pageSchema = schema ?? JSON.stringify({
 		"name": SITE_TITLE,
 	},
 });
+
+const GA_SNIPPET = `<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-V48M5XM7FY"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'G-V48M5XM7FY');\n</script>`;
 ---
 
 <!-- Global Metadata -->
@@ -75,3 +84,12 @@ const pageSchema = schema ?? JSON.stringify({
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
 <script type="application/ld+json">{pageSchema}</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V48M5XM7FY"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = (...a) => window.dataLayer.push(a);
+	window.gtag('js', new Date());
+	window.gtag('config', 'G-V48M5XM7FY');
+</script>
