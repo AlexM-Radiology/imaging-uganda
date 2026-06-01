@@ -5,7 +5,6 @@ import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/logo.jpg';
 import { SITE_TITLE } from '../consts';
-import { Font } from 'astro:assets';
 
 declare global {
 	interface Window {
@@ -38,7 +37,6 @@ const pageSchema = schema ?? JSON.stringify({
 	},
 });
 
-const GA_SNIPPET = `<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-V48M5XM7FY"></script>\n<script>\n  window.dataLayer = window.dataLayer || [];\n  function gtag(){dataLayer.push(arguments);}\n  gtag('js', new Date());\n\n  gtag('config', 'G-V48M5XM7FY');\n</script>`;
 ---
 
 <!-- Global Metadata -->
@@ -55,8 +53,6 @@ const GA_SNIPPET = `<!-- Google tag (gtag.js) -->\n<script async src="https://ww
 	href={new URL('rss.xml', Astro.site)}
 />
 <meta name="generator" content={Astro.generator} />
-
-<Font cssVariable="--font-atkinson" preload />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
