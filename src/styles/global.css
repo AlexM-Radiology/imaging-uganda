@@ -4,7 +4,24 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+@font-face {
+  font-family: 'Atkinson';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/atkinson-regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Atkinson';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/atkinson-bold.woff') format('woff');
+}
+
 :root {
+  --font-atkinson: 'Atkinson', sans-serif;
   --header-height: 60px;
   --accent: #2337ff;
   --accent-dark: #000d8a;
@@ -30,7 +47,7 @@ html {
 }
 
 body {
-  font-family: var(--font-atkinson);
+  font-family: var(--font-atkinson, 'Atkinson', sans-serif);
   margin: 0;
   padding: 0;
   text-align: left;
