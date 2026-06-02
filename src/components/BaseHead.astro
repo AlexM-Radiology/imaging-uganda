@@ -83,9 +83,9 @@ const pageSchema = schema ?? JSON.stringify({
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V48M5XM7FY"></script>
-<script>
+<script is:inline>
 	window.dataLayer = window.dataLayer || [];
-	window.gtag = (...a) => window.dataLayer.push(a);
-	window.gtag('js', new Date());
-	window.gtag('config', 'G-V48M5XM7FY');
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-V48M5XM7FY', { 'send_page_view': true });
 </script>
