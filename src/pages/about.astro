@@ -1,43 +1,72 @@
 ---
-import AboutHeroImage from '../assets/lameck-5.jpg';
-import Layout from '../layouts/ArticlesPost.astro';
-import { Image } from 'astro:assets';
+import AboutHeroImage from "../assets/lameck-5.jpg";
+import Layout from "../layouts/ArticlesPost.astro";
+import { Image } from "astro:assets";
 
 // Importing local founder images from src/assets/
-import pishonImg from '../assets/pishon-1.jpg';
-import lameckImg from '../assets/lameck-1.jpg'; // Reusing your known local asset, update filename if needed
-import henryImg from '../assets/henry-1.jpg';  // Placeholder asset link, update to henry's photo name later
+import pishonImg from "../assets/pishon-1.jpg";
+import lameckImg from "../assets/lameck-1.jpg"; // Reusing your known local asset, update filename if needed
+import henryImg from "../assets/henry-1.jpg"; // Placeholder asset link, update to henry's photo name later
 ---
 
 <Layout
   title="About Imaging Uganda/Africa"
   description="From a grassroots WhatsApp community to a leading educational platform bridging the gap between radiology professionals and patients."
-  pubDate={new Date('May 23 2026')}
+  pubDate={new Date("May 23 2026")}
   heroImage={AboutHeroImage}
 >
+  <h2 style="font-size: 26px; color: rgb(0, 0, 139); margin-bottom: 0.5rem;">
+    Our Story
+  </h2>
+
   <p>
-    <strong>Imaging Uganda/Africa</strong> began with a simple mission: to connect local medical imaging professionals, share knowledge, and discuss challenging diagnostic cases. What started as a focused, passionate WhatsApp group has grown into a dynamic educational platform dedicated to advancing radiology across the region.
+    <strong>Imaging Uganda/Africa</strong> began with a simple mission: to connect
+    local medical imaging professionals, share knowledge, and discuss challenging
+    diagnostic cases. What started as a focused, passionate WhatsApp group has grown
+    into a dynamic educational platform dedicated to advancing radiology across the
+    region.
   </p>
 
   <p>
-    Today, we bridge the gap between healthcare providers, students, and patients. By providing high-quality educational content, detailed radiology case studies, and accessible resources on advanced imaging techniques, we empower professionals to sharpen their diagnostic skills and help patients understand their medical procedures.
+    Today, we bridge the gap between healthcare providers, students, and
+    patients. By providing high-quality educational content, detailed radiology
+    case studies, and accessible resources on advanced imaging techniques, we
+    empower professionals to sharpen their diagnostic skills and help patients
+    understand their medical procedures.
   </p>
 
   <p>
-    As our community expands across East Africa and the broader continent, we remain committed to fostering collaboration, improving diagnostic accuracy, and highlighting the latest technological advancements in the field of radiology.
+    As our community expands across East Africa and the broader continent, we
+    remain committed to fostering collaboration, improving diagnostic accuracy,
+    and highlighting the latest technological advancements in the field of
+    radiology.
   </p>
 
-  <hr style="border: 0; border-top: 1px solid #e9ecef; margin: 3rem 0 2rem 0;" />
+  <hr
+    style="border: 0; border-top: 1px solid #e9ecef; margin: 3rem 0 2rem 0;"
+  />
 
-  <h2 style="font-size: 26px; color: rgb(0, 0, 139); margin-bottom: 0.5rem;">Our Founders</h2>
-  <p style="color: #666; margin-bottom: 2rem;">Select a founder below to view their full professional curriculum vitae (CV).</p>
-  
+  <h2 style="font-size: 26px; color: rgb(0, 0, 139); margin-bottom: 0.5rem;">
+    Our Founders
+  </h2>
+  <p style="color: #666; margin-bottom: 2rem;">
+    Select a founder below to view their full professional curriculum vitae
+    (CV).
+  </p>
+
   <div class="founders-grid">
-    <a href="/cvs/mwanje-pishon" class="founder-card" title="View CV of Mwanje Pishon">
+    <a
+      href="/cvs/mwanje-pishon"
+      class="founder-card"
+      title="View CV of Mwanje Pishon"
+    >
       <Image src={pishonImg} alt="Mwanje Pishon" class="founder-avatar" />
       <h3>Mwanje Pishon</h3>
       <p class="role">Medical Imaging Technologist (MIT) & Co-Founder</p>
-      <p class="bio">Mwanje Pishon is a Ugandan by nationality male gender. I am a registered medical imaging technologist by Allied Health Profession Council-AHPC...</p>
+      <p class="bio">
+        Mwanje Pishon is a Ugandan by nationality male gender. I am a registered
+        medical imaging technologist by Allied Health Profession Council-AHPC...
+      </p>
       <span class="cv-link-text">View CV &rarr;</span>
     </a>
 
@@ -45,15 +74,25 @@ import henryImg from '../assets/henry-1.jpg';  // Placeholder asset link, update
       <Image src={lameckImg} alt="Lameck" class="founder-avatar" />
       <h3>LAMECK</h3>
       <p class="role">Medical Imaging Technologist (MIT) & Co-Founder</p>
-      <p class="bio">A God fearing, industrious, highly skilled and reliable Radiographer with leadership and organizational skills. Over 13 years experience in diagno...</p>
+      <p class="bio">
+        A God fearing, industrious, highly skilled and reliable Radiographer
+        with leadership and organizational skills. Over 13 years experience in diagno...
+      </p>
       <span class="cv-link-text">View CV &rarr;</span>
     </a>
 
-    <a href="/cvs/ssenyonga-henry" class="founder-card" title="View CV of Ssenyonga Henry">
+    <a
+      href="/cvs/ssenyonga-henry"
+      class="founder-card"
+      title="View CV of Ssenyonga Henry"
+    >
       <Image src={henryImg} alt="Ssenyonga Henry" class="founder-avatar" />
       <h3>Ssenyonga Henry</h3>
       <p class="role">Medical Imaging Technologist (MIT) & Co-Founder</p>
-      <p class="bio">Ugandan by nationality male gender. I am a registered medical radiographer. I diagnose using the following imaging modalities; ultras...</p>
+      <p class="bio">
+        Ugandan by nationality male gender. I am a registered medical
+        radiographer. I diagnose using the following imaging modalities; ultras...
+      </p>
       <span class="cv-link-text">View CV &rarr;</span>
     </a>
   </div>
