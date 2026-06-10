@@ -2,456 +2,624 @@
 // Lameck - Medical CV Component
 // You can copy/paste this directly into an Astro page (e.g., src/pages/cv-lameck.astro)
 
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { Image } from 'astro:assets';
-import profileImg from '../../assets/lameck-5.jpg';
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { Image } from "astro:assets";
+import profileImg from "../../assets/lameck-5.jpg";
 ---
 
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lameck - CV | Imaging Uganda/Africa</title>
-</head>
-<body>
+  </head>
+  <body>
     <Header />
     <div class="cv-container">
-        <div class="cv-grid">
-            <aside class="thumbnail-column">
-                <Image src={profileImg} alt="Lameck Profile Picture" class="profile-img" />
-                
-                <div class="header-text">
-                    <h1 class="name">LAMECK</h1>
-                    <p class="title">MEDICAL CV</p>
+      <div class="cv-grid">
+        <aside class="thumbnail-column">
+          <Image
+            src={profileImg}
+            alt="Lameck Profile Picture"
+            class="profile-img"
+          />
+
+          <div class="header-text">
+            <h1 class="name">LAMECK</h1>
+            <p class="title">MEDICAL CV</p>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="contact-info">
+            <h3 class="contact-heading">Contacts</h3>
+            <ul>
+              <li>
+                <strong>Tel:</strong>
+                <a href="tel:+256777169333">+256777169333</a>
+              </li>
+              <li>
+                <strong>Email:</strong>
+                <a href="mailto:mukisamuzaale@gmail.com"
+                  >mukisamuzaale@gmail.com</a>
+              </li>
+              <li><strong>Address:</strong> Uganda, Kampala 7272</li>
+            </ul>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="contact-info">
+            <h3 class="contact-heading">Languages</h3>
+            <ul>
+              <li><strong>Luganda:</strong> Native / First Language</li>
+              <li><strong>English:</strong> Proficient (C2)</li>
+              <li><strong>Swahili:</strong> Intermediate (B1)</li>
+            </ul>
+          </div>
+        </aside>
+
+        <main class="content-column">
+          <section class="section">
+            <h2 class="section-title">Introduction</h2>
+            <p>
+              A God fearing, industrious, highly skilled and reliable
+              Radiographer with leadership and organizational skills. Over 13
+              years experience in diagnostic imaging with a huge range of skills
+              in different modalities including digital and analogue
+              radiography, ultrasound, MRI, CT, Mammography and ECG. A public
+              health specialist. I am enthusiastic about improving health and I
+              will not stop until I make a significant positive impact!
+            </p>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Education</h2>
+            <div class="experience-item">
+              <div class="experience-content">
+                <div class="experience-text">
+                  <div class="nested-job-header">
+                    <h3 class="item-title">Msc. Int. Public Health</h3>
+                    <span class="item-date">2024</span>
+                  </div>
+                  <p class="item-subtitle">
+                    Liverpool John Moores University (Liverpool)
+                  </p>
+
+                  <div class="nested-job-header" style="margin-top: 15px;">
+                    <h3 class="item-title">
+                      Bachelor of Science in Medical Radiography (Hons)
+                    </h3>
+                    <span class="item-date">2012</span>
+                  </div>
+                  <p class="item-subtitle">Makerere University (Kampala)</p>
+
+                  <div class="nested-job-header" style="margin-top: 15px;">
+                    <h3 class="item-title">UACE</h3>
+                    <span class="item-date">2007</span>
+                  </div>
+                  <p class="item-subtitle">Kyambogo College School</p>
+
+                  <p
+                    class="item-subtitle"
+                    style="margin-top: 20px; color: var(--text-dark); border-bottom: 1px solid #ddd; padding-bottom: 4px;"
+                  >
+                    Certificates & Training
+                  </p>
+                  <ul class="sub-list">
+                    <li>
+                      UK imaging and oncology 2023 attendance Certificate -
+                      Liverpool, UK
+                    </li>
+                    <li>
+                      Delft imaging (digital imaging and AI): Multiple
+                      certificates including factory training in Veenendaal, The
+                      Netherlands
+                    </li>
+                  </ul>
                 </div>
-                
-                <div class="divider"></div>
-                
-                <div class="contact-info">
-                    <h3 class="contact-heading">Contacts</h3>
-                    <ul>
-                        <li><strong>Tel:</strong> <a href="tel:+256777169333">+256777169333</a></li>
-                        <li><strong>Email:</strong> <a href="mailto:mukisamuzaale@gmail.com">mukisamuzaale@gmail.com</a></li>
-                        <li><strong>Address:</strong> Uganda, Kampala 7272</li>
-                    </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Work</h2>
+
+            <div class="experience-item">
+              <div class="experience-content">
+                <div class="experience-text">
+                  <div class="nested-job-header">
+                    <h3 class="item-title">Radiographer</h3>
+                    <span class="item-date">07/2022 - Present</span>
+                  </div>
+                  <p class="item-subtitle">
+                    Ministry of Health | NTLP The Global Fund (Kampala)
+                  </p>
+                  <ul class="main-list">
+                    <li>
+                      Developing plans and managing operations of the digital
+                      x-ray machines. This involves operations of the mobile TB
+                      clinics fitted with digital x-ray and GeneXpert machines
+                      as well as portable digital x-rays.
+                    </li>
+                    <li>
+                      Liaising locally and internationally with different
+                      stakeholders including users, suppliers and engineers to
+                      ensure smooth in-country operation of digital x-ray
+                      technologies and AI for TB screening and diagnosis.
+                    </li>
+                    <li>
+                      Utilizing Mobile digital x-ray, mounted in the mobile TB
+                      clinics to diagnose TB cases in different TB hotspots and
+                      congregate settings throughout the country. Involved in
+                      planning, implementing and evaluating TB screening
+                      activities.
+                    </li>
+                    <li>
+                      Trained, mentored and supervised radiographers from
+                      different health facilities on the use of digital x-ray
+                      and Artificial Intelligence (AI) for screening and
+                      diagnosis of TB.
+                    </li>
+                    <li>
+                      Responsible for equipment maintenance, logging faults and
+                      troubleshooting together with the team of engineers from
+                      the supplier. Ensuring proper storage of the x-ray
+                      equipment and accessories.
+                    </li>
+                    <li>
+                      Interpreting the x-ray results, writing reports of
+                      findings, communicating the results and ensuring
+                      appropriate actions are taken for each patient, including
+                      linking patients to appropriate care points.
+                    </li>
+                    <li>
+                      Charged with the responsibility of Radiation Safety
+                      Officer, regularly liaising and coordinating with the
+                      Atomic Energy Council (AEC) on radiation safety matters.
+                      Coordinating the radiation safety function of the digital
+                      x-ray systems under the TB program nationally.
+                    </li>
+                    <li>
+                      Health education in communities to promote healthy
+                      practices for healthier communities.
+                    </li>
+                  </ul>
                 </div>
+              </div>
+            </div>
 
-                <div class="divider"></div>
-
-                <div class="contact-info">
-                    <h3 class="contact-heading">Languages</h3>
-                    <ul>
-                        <li><strong>Luganda:</strong> Native / First Language</li>
-                        <li><strong>English:</strong> Proficient (C2)</li>
-                        <li><strong>Swahili:</strong> Intermediate (B1)</li>
-                    </ul>
+            <div class="experience-item">
+              <div class="experience-content">
+                <div class="experience-text">
+                  <div class="nested-job-header">
+                    <h3 class="item-title">Radiologic Technologist</h3>
+                    <span class="item-date">01/2020 - 06/2022</span>
+                  </div>
+                  <p class="item-subtitle">
+                    St. My Stephens Hospital C.O.U Mpererwe (Kampala)
+                  </p>
+                  <ul class="main-list">
+                    <li>
+                      Diagnosed patients' illness or injury by using x-ray and
+                      ultrasound machines to examine organs.
+                    </li>
+                    <li>
+                      Generated data and summary from radiology scan findings to
+                      provide detailed reports to doctors.
+                    </li>
+                    <li>
+                      Performed radiation checks on equipment to determine low
+                      doses and reduce exposure, avoiding long-term harmful
+                      effects.
+                    </li>
+                    <li>
+                      Briefed patients regarding requirements for radiographic
+                      procedures to address questions and concerns.
+                    </li>
+                    <li>
+                      Verified equipment safety by conducting thorough
+                      inspections, promptly reporting issues to maintenance to
+                      address issues and manage wear and tear.
+                    </li>
+                    <li>
+                      Identified patients requiring emergency procedures to
+                      determine and speed up priority cases.
+                    </li>
+                    <li>
+                      Trained junior staff in Radiography best practice and
+                      departmental radiology protocols.
+                    </li>
+                  </ul>
                 </div>
-            </aside>
-            
-            <main class="content-column">
-                <section class="section">
-                    <h2 class="section-title">Introduction</h2>
-                    <p>A God fearing, industrious, highly skilled and reliable Radiographer with leadership and organizational skills. Over 13 years experience in diagnostic imaging with a huge range of skills in different modalities including digital and analogue radiography, ultrasound, MRI, CT, Mammography and ECG. A public health specialist. I am enthusiastic about improving health and I will not stop until I make a significant positive impact!</p>
-                </section>
-                
-                <section class="section">
-                    <h2 class="section-title">Education</h2>
-                    <div class="experience-item">
-                        <div class="experience-content">
-                            <div class="experience-text">
-                                <div class="nested-job-header">
-                                    <h3 class="item-title">Msc. Int. Public Health</h3>
-                                    <span class="item-date">2024</span>
-                                </div>
-                                <p class="item-subtitle">Liverpool John Moores University (Liverpool)</p>
-                                
-                                <div class="nested-job-header" style="margin-top: 15px;">
-                                    <h3 class="item-title">Bachelor of Science in Medical Radiography (Hons)</h3>
-                                    <span class="item-date">2012</span>
-                                </div>
-                                <p class="item-subtitle">Makerere University (Kampala)</p>
+              </div>
+            </div>
 
-                                <div class="nested-job-header" style="margin-top: 15px;">
-                                    <h3 class="item-title">UACE</h3>
-                                    <span class="item-date">2007</span>
-                                </div>
-                                <p class="item-subtitle">Kyambogo College School</p>
+            <div class="experience-item">
+              <div class="experience-content">
+                <div class="experience-text">
+                  <div class="nested-job-header">
+                    <h3 class="item-title">
+                      Radiography In-charge and Radiation Safety Officer
+                    </h3>
+                    <span class="item-date">01/2016 - 01/2020</span>
+                  </div>
+                  <p class="item-subtitle">Mildmay Uganda (Kampala)</p>
+                  <ul class="main-list">
+                    <li>
+                      Continued with roles of the Radiographer as was my
+                      previous position, adding the role of heading the unit and
+                      formally performing the roles of Radiation Safety Officer
+                      (RSO).
+                    </li>
+                    <li>
+                      Supervised the relocation of the Radiology Unit to new,
+                      separate and more spacious premises. A direct digital
+                      x-ray was also installed under my supervision, upgrading
+                      from a computerized Radiography (CR) System.
+                    </li>
+                    <li>
+                      Part of the team that spear-headed the introduction of
+                      private Radiography Services to ensure sustainability of
+                      the Radiology Unit. Helped grow the private Radiography
+                      services significantly, putting the Unit on a path of
+                      self-sustainability.
+                    </li>
+                    <li>
+                      Created and implemented programs, policies and procedures
+                      designed to reduce or eliminate injuries and hazards in
+                      workplace.
+                    </li>
+                    <li>
+                      Charged with budgeting and overseeing expenses for the
+                      radiology department.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
 
-                                <p class="item-subtitle" style="margin-top: 20px; color: var(--text-dark); border-bottom: 1px solid #ddd; padding-bottom: 4px;">Certificates & Training</p>
-                                <ul class="sub-list">
-                                    <li>UK imaging and oncology 2023 attendance Certificate - Liverpool, UK</li>
-                                    <li>Delft imaging (digital imaging and AI): Multiple certificates including factory training in Veenendaal, The Netherlands</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section class="section">
-                    <h2 class="section-title">Work</h2>
-                    
-                    <div class="experience-item">
-                        <div class="experience-content">
-                            <div class="experience-text">
-                                <div class="nested-job-header">
-                                    <h3 class="item-title">Radiographer</h3>
-                                    <span class="item-date">07/2022 - Present</span>
-                                </div>
-                                <p class="item-subtitle">Ministry of Health | NTLP The Global Fund (Kampala)</p>
-                                <ul class="main-list">
-                                    <li>Developing plans and managing operations of the digital x-ray machines. This involves operations of the mobile TB clinics fitted with digital x-ray and GeneXpert machines as well as portable digital x-rays.</li>
-                                    <li>Liaising locally and internationally with different stakeholders including users, suppliers and engineers to ensure smooth in-country operation of digital x-ray technologies and AI for TB screening and diagnosis.</li>
-                                    <li>Utilizing Mobile digital x-ray, mounted in the mobile TB clinics to diagnose TB cases in different TB hotspots and congregate settings throughout the country. Involved in planning, implementing and evaluating TB screening activities.</li>
-                                    <li>Trained, mentored and supervised radiographers from different health facilities on the use of digital x-ray and Artificial Intelligence (AI) for screening and diagnosis of TB.</li>
-                                    <li>Responsible for equipment maintenance, logging faults and troubleshooting together with the team of engineers from the supplier. Ensuring proper storage of the x-ray equipment and accessories.</li>
-                                    <li>Interpreting the x-ray results, writing reports of findings, communicating the results and ensuring appropriate actions are taken for each patient, including linking patients to appropriate care points.</li>
-                                    <li>Charged with the responsibility of Radiation Safety Officer, regularly liaising and coordinating with the Atomic Energy Council (AEC) on radiation safety matters. Coordinating the radiation safety function of the digital x-ray systems under the TB program nationally.</li>
-                                    <li>Health education in communities to promote healthy practices for healthier communities.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+            <div class="experience-item">
+              <div class="experience-content">
+                <div class="experience-text">
+                  <div class="nested-job-header">
+                    <h3 class="item-title">Diagnostic Radiographer</h3>
+                    <span class="item-date">01/2012 - 01/2016</span>
+                  </div>
+                  <p class="item-subtitle">Mildmay International (Kampala)</p>
+                  <ul class="main-list">
+                    <li>
+                      Helped establish the radiology unit with state-of-the-art
+                      digital x-ray and Ultrasound. Supervised the process from
+                      planning through procurement to user training and
+                      delivering the radiology services.
+                    </li>
+                    <li>
+                      Achieved full registration and licensing of the radiology
+                      unit by Atomic Energy Council, ensuring maximum radiation
+                      safety standards.
+                    </li>
+                    <li>
+                      Projecting and Planning for the radiology department as
+                      well as managing supplies.
+                    </li>
+                    <li>
+                      Ensured radiology equipment is well maintained and
+                      serviced. Responsible for periodical reporting to
+                      management on the activities of the radiology unit.
+                    </li>
+                    <li>
+                      Performing radiological and sonographic examinations on
+                      clients and interpreting results to enable proper decision
+                      making and management.
+                    </li>
+                    <li>
+                      Screened patients and reviewed clinical requirements to
+                      verify radiographic techniques to use.
+                    </li>
+                    <li>
+                      Verified equipment safety by conducting thorough
+                      inspections, promptly reporting issues to maintenance to
+                      address issues and manage wear and tear.
+                    </li>
+                    <li>
+                      Performed radiation checks on equipment to determine low
+                      doses and reduce exposure, avoiding long-term harmful
+                      effects.
+                    </li>
+                    <li>
+                      Trained and supervised radiography and imaging support
+                      assistants to follow guidelines and procedures, performing
+                      best practices and quality standards.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                    <div class="experience-item">
-                        <div class="experience-content">
-                            <div class="experience-text">
-                                <div class="nested-job-header">
-                                    <h3 class="item-title">Radiologic Technologist</h3>
-                                    <span class="item-date">01/2020 - 06/2022</span>
-                                </div>
-                                <p class="item-subtitle">St. My Stephens Hospital C.O.U Mpererwe (Kampala)</p>
-                                <ul class="main-list">
-                                    <li>Diagnosed patients' illness or injury by using x-ray and ultrasound machines to examine organs.</li>
-                                    <li>Generated data and summary from radiology scan findings to provide detailed reports to doctors.</li>
-                                    <li>Performed radiation checks on equipment to determine low doses and reduce exposure, avoiding long-term harmful effects.</li>
-                                    <li>Briefed patients regarding requirements for radiographic procedures to address questions and concerns.</li>
-                                    <li>Verified equipment safety by conducting thorough inspections, promptly reporting issues to maintenance to address issues and manage wear and tear.</li>
-                                    <li>Identified patients requiring emergency procedures to determine and speed up priority cases.</li>
-                                    <li>Trained junior staff in Radiography best practice and departmental radiology protocols.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="experience-item">
-                        <div class="experience-content">
-                            <div class="experience-text">
-                                <div class="nested-job-header">
-                                    <h3 class="item-title">Radiography In-charge and Radiation Safety Officer</h3>
-                                    <span class="item-date">01/2016 - 01/2020</span>
-                                </div>
-                                <p class="item-subtitle">Mildmay Uganda (Kampala)</p>
-                                <ul class="main-list">
-                                    <li>Continued with roles of the Radiographer as was my previous position, adding the role of heading the unit and formally performing the roles of Radiation Safety Officer (RSO).</li>
-                                    <li>Supervised the relocation of the Radiology Unit to new, separate and more spacious premises. A direct digital x-ray was also installed under my supervision, upgrading from a computerized Radiography (CR) System.</li>
-                                    <li>Part of the team that spear-headed the introduction of private Radiography Services to ensure sustainability of the Radiology Unit. Helped grow the private Radiography services significantly, putting the Unit on a path of self-sustainability.</li>
-                                    <li>Created and implemented programs, policies and procedures designed to reduce or eliminate injuries and hazards in workplace.</li>
-                                    <li>Charged with budgeting and overseeing expenses for the radiology department.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="experience-item">
-                        <div class="experience-content">
-                            <div class="experience-text">
-                                <div class="nested-job-header">
-                                    <h3 class="item-title">Diagnostic Radiographer</h3>
-                                    <span class="item-date">01/2012 - 01/2016</span>
-                                </div>
-                                <p class="item-subtitle">Mildmay International (Kampala)</p>
-                                <ul class="main-list">
-                                    <li>Helped establish the radiology unit with state-of-the-art digital x-ray and Ultrasound. Supervised the process from planning through procurement to user training and delivering the radiology services.</li>
-                                    <li>Achieved full registration and licensing of the radiology unit by Atomic Energy Council, ensuring maximum radiation safety standards.</li>
-                                    <li>Projecting and Planning for the radiology department as well as managing supplies.</li>
-                                    <li>Ensured radiology equipment is well maintained and serviced. Responsible for periodical reporting to management on the activities of the radiology unit.</li>
-                                    <li>Performing radiological and sonographic examinations on clients and interpreting results to enable proper decision making and management.</li>
-                                    <li>Screened patients and reviewed clinical requirements to verify radiographic techniques to use.</li>
-                                    <li>Verified equipment safety by conducting thorough inspections, promptly reporting issues to maintenance to address issues and manage wear and tear.</li>
-                                    <li>Performed radiation checks on equipment to determine low doses and reduce exposure, avoiding long-term harmful effects.</li>
-                                    <li>Trained and supervised radiography and imaging support assistants to follow guidelines and procedures, performing best practices and quality standards.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section class="section">
-                    <h2 class="section-title">Skills and experience</h2>
-                    <div class="experience-item">
-                        <div class="experience-content">
-                            <div class="experience-text">
-                                <ul class="main-list">
-                                    <li>Digital & Analogue Radiography</li>
-                                    <li>X-ray interpretation</li>
-                                    <li>Ultrasonography (Abdominal, EFAST, MSK, small parts, Obs&Gyn, Fetal Doppler and Echo, TVS & TRUS)</li>
-                                    <li>Computed Tomography (CT)</li>
-                                    <li>Magnetic Resonance Imaging (MRI)</li>
-                                    <li>Fluoroscopy & Mammography</li>
-                                    <li>Artificial Intelligence in Medical Imaging</li>
-                                    <li>Radiation Safety & Equipment Maintenance</li>
-                                    <li>ECG Operational Skills</li>
-                                    <li>Report Writing, Communication & Computer Skills</li>
-                                    <li>Records and Information Management</li>
-                                    <li>Research Skills & Quality Control</li>
-                                    <li>Team Leadership & Training</li>
-                                    <li>Planning, Coordination & Community Health Interventions</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-        </div>
+          <section class="section">
+            <h2 class="section-title">Skills and experience</h2>
+            <div class="experience-item">
+              <div class="experience-content">
+                <div class="experience-text">
+                  <ul class="main-list">
+                    <li>Digital & Analogue Radiography</li>
+                    <li>X-ray interpretation</li>
+                    <li>
+                      Ultrasonography (Abdominal, EFAST, MSK, small parts,
+                      Obs&Gyn, Fetal Doppler and Echo, TVS & TRUS)
+                    </li>
+                    <li>Computed Tomography (CT)</li>
+                    <li>Magnetic Resonance Imaging (MRI)</li>
+                    <li>Fluoroscopy & Mammography</li>
+                    <li>Artificial Intelligence in Medical Imaging</li>
+                    <li>Radiation Safety & Equipment Maintenance</li>
+                    <li>ECG Operational Skills</li>
+                    <li>Report Writing, Communication & Computer Skills</li>
+                    <li>Records and Information Management</li>
+                    <li>Research Skills & Quality Control</li>
+                    <li>Team Leadership & Training</li>
+                    <li>
+                      Planning, Coordination & Community Health Interventions
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
     <Footer />
-</body>
+  </body>
 </html>
 
 <style>
-    /* UI Palette matching Mwanje Pishon's visual design exactly */
-    :root {
-        --sidebar-bg: #1c4966; /* Deep steel blue */
-        --section-heading: #173952;
-        --border-blue: #4491c5;
-        --accent-red: #d35400;
-        --text-dark: #333333;
-        --date-bg: #e9ecef;
-    }
-    
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-    
-    body {
-        color: var(--text-dark);
-        line-height: 1.5;
-        background-color: #f0f2f5;
-        padding: 30px 15px;
-    }
-    
-    .cv-container {
-        max-width: 1050px;
-        margin: 80px auto 0 auto; /* Pushed down exactly 80px to clear fixed header */
-        background: white;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border-radius: 4px;
-        overflow: hidden;
-    }
-    
+  /* UI Palette matching Mwanje Pishon's visual design exactly */
+  :root {
+    --sidebar-bg: #1c4966; /* Deep steel blue */
+    --section-heading: #173952;
+    --border-blue: #4491c5;
+    --accent-red: #d35400;
+    --text-dark: #333333;
+    --date-bg: #e9ecef;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+    color: var(--text-dark);
+    line-height: 1.5;
+    background-color: #f0f2f5;
+    padding: 30px 15px;
+  }
+
+  .cv-container {
+    max-width: 1050px;
+    margin: 80px auto 0 auto; /* Pushed down exactly 80px to clear fixed header */
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .cv-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+  }
+
+  /* Left Column (Sidebar) Styling */
+  .thumbnail-column {
+    background-color: var(--sidebar-bg);
+    color: white;
+    padding: 40px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.9);
+    margin-bottom: 25px;
+    object-fit: cover;
+  }
+
+  .header-text {
+    text-align: center;
+    width: 100%;
+  }
+
+  .name {
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .title {
+    font-size: 1rem;
+    opacity: 0.75;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 25px 0;
+    width: 100%;
+  }
+
+  .contact-info {
+    width: 100%;
+  }
+
+  .contact-heading {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 5px;
+  }
+
+  .contact-info ul {
+    list-style: none;
+  }
+
+  .contact-info li {
+    margin-bottom: 12px;
+    font-size: 0.88rem;
+    word-break: break-all;
+  }
+
+  .contact-info a {
+    color: #76e4ff;
+    text-decoration: none;
+  }
+
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+
+  /* Right Column (Main content) Styling */
+  .content-column {
+    padding: 40px;
+  }
+
+  .section {
+    margin-bottom: 35px;
+  }
+
+  .section-title {
+    color: var(--section-heading);
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border-blue);
+    position: relative;
+  }
+
+  .section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 45px;
+    height: 2px;
+    background-color: var(--accent-red);
+  }
+
+  .experience-item {
+    margin-bottom: 30px;
+  }
+
+  .experience-content {
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+  }
+
+  .experience-text {
+    flex: 1;
+  }
+
+  /* Layout styling for list items inside Sections */
+  .main-list,
+  .sub-list {
+    padding-left: 20px;
+  }
+
+  .main-list li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    text-align: justify;
+  }
+
+  .nested-job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .item-title {
+    font-size: 1.05rem;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+
+  .item-date {
+    font-size: 0.85rem;
+    color: #555;
+    background-color: var(--date-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .item-subtitle {
+    font-size: 0.95rem;
+    color: var(--border-blue);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .sub-list li {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: #444;
+  }
+
+  /* Media Breakpoints for Responsiveness */
+  @media (max-width: 850px) {
     .cv-grid {
-        display: grid;
-        grid-template-columns: 280px 1fr;
-        min-height: 100vh;
+      grid-template-columns: 1fr;
     }
-    
-    /* Left Column (Sidebar) Styling */
+
     .thumbnail-column {
-        background-color: var(--sidebar-bg);
-        color: white;
-        padding: 40px 25px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      padding: 30px;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      gap: 20px;
     }
-    
+
     .profile-img {
-        width: 170px;
-        height: 170px;
-        border-radius: 50%;
-        border: 4px solid rgba(255, 255, 255, 0.9);
-        margin-bottom: 25px;
-        object-fit: cover;
+      width: 110px;
+      height: 110px;
+      margin-bottom: 0;
     }
-    
+
     .header-text {
-        text-align: center;
-        width: 100%;
+      text-align: left;
+      flex: 1;
     }
-    
-    .name {
-        font-size: 1.6rem;
-        letter-spacing: 0.5px;
-        font-weight: 700;
-        margin-bottom: 4px;
-    }
-    
-    .title {
-        font-size: 1rem;
-        opacity: 0.75;
-        letter-spacing: 1px;
-    }
-    
+
     .divider {
-        height: 1px;
-        background-color: rgba(255, 255, 255, 0.2);
-        margin: 25px 0;
-        width: 100%;
+      display: none;
     }
-    
+
     .contact-info {
-        width: 100%;
+      margin-top: 10px;
     }
-    
-    .contact-heading {
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-        font-weight: 600;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        padding-bottom: 5px;
-    }
-    
-    .contact-info ul {
-        list-style: none;
-    }
-    
-    .contact-info li {
-        margin-bottom: 12px;
-        font-size: 0.88rem;
-        word-break: break-all;
-    }
-    
-    .contact-info a {
-        color: #76e4ff;
-        text-decoration: none;
-    }
-    
-    .contact-info a:hover {
-        text-decoration: underline;
-    }
-    
-    /* Right Column (Main content) Styling */
-    .content-column {
-        padding: 40px;
-    }
-    
-    .section {
-        margin-bottom: 35px;
-    }
-    
-    .section-title {
-        color: var(--section-heading);
-        font-size: 1.4rem;
-        margin-bottom: 18px;
-        padding-bottom: 6px;
-        border-bottom: 2px solid var(--border-blue);
-        position: relative;
-    }
-    
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 45px;
-        height: 2px;
-        background-color: var(--accent-red);
-    }
-    
-    .experience-item {
-        margin-bottom: 30px;
-    }
-    
-    .experience-content {
-        display: flex;
-        gap: 25px;
-        justify-content: space-between;
-    }
-    
-    .experience-text {
-        flex: 1;
-    }
-    
-    /* Layout styling for list items inside Sections */
-    .main-list, .sub-list {
-        padding-left: 20px;
-    }
-    
-    .main-list li {
-        margin-bottom: 10px;
-        font-size: 0.95rem;
-        text-align: justify;
-    }
-    
+  }
+
+  @media (max-width: 600px) {
     .nested-job-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 5px;
-        margin-bottom: 5px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
     }
-    
-    .item-title {
-        font-size: 1.05rem;
-        color: #2c3e50;
-        font-weight: 600;
-    }
-    
-    .item-date {
-        font-size: 0.85rem;
-        color: #555;
-        background-color: var(--date-bg);
-        padding: 2px 8px;
-        border-radius: 3px;
-        white-space: nowrap;
-    }
-    
-    .item-subtitle {
-        font-size: 0.95rem;
-        color: var(--border-blue);
-        font-weight: 600;
-        margin-bottom: 12px;
-    }
-    
-    .sub-list li {
-        margin-bottom: 6px;
-        font-size: 0.9rem;
-        color: #444;
-    }
-    
-    /* Media Breakpoints for Responsiveness */
-    @media (max-width: 850px) {
-        .cv-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .thumbnail-column {
-            padding: 30px;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            gap: 20px;
-        }
-        
-        .profile-img {
-            width: 110px;
-            height: 110px;
-            margin-bottom: 0;
-        }
-        
-        .header-text {
-            text-align: left;
-            flex: 1;
-        }
-        
-        .divider {
-            display: none;
-        }
-        
-        .contact-info {
-            margin-top: 10px;
-        }
-    }
-    
-    @media (max-width: 600px) {
-        .nested-job-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
-        }
-    }
+  }
 </style>
