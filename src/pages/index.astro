@@ -276,41 +276,6 @@ const equipmentItems = (await getCollection('equipment'))
 
       <section class="carousel-section-wrapper">
         <div class="section-header">
-          <h2>Popular Cases</h2>
-          <a href="/cases/" class="view-all">View all</a>
-        </div>
-        
-        <div class="horizontal-scroll-track class-scroll-track">
-          {
-            popularCases.map((post) => (
-              <a href={`/cases/${post.id}/`} class="scroll-card">
-                <div class="card-image-container">
-                  {post.data.heroImage ? (
-                    <Image 
-                      width={200} 
-                      height={200} 
-                      src={post.data.heroImage} 
-                      alt="" 
-                    />
-                  ) : (
-                    <div style="width:100%; height:100%; background:#e0e0e0;" />
-                  )}
-                </div>
-                <h3 class="card-title">{post.data.title}</h3>
-              </a>
-            ))
-          }
-        </div>
-
-        <div class="carousel-indicators">
-          {popularCases.map((_, index) => (
-            <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
-          ))}
-        </div>
-      </section>
-
-      <section class="carousel-section-wrapper">
-        <div class="section-header">
           <h2>Recent Articles</h2>
           <a href="/articles/" class="view-all">View all</a>
         </div>
@@ -339,6 +304,41 @@ const equipmentItems = (await getCollection('equipment'))
 
         <div class="carousel-indicators">
           {recentArticles.map((_, index) => (
+            <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
+          ))}
+        </div>
+      </section>
+
+      <section class="carousel-section-wrapper">
+        <div class="section-header">
+          <h2>Popular Cases</h2>
+          <a href="/cases/" class="view-all">View all</a>
+        </div>
+        
+        <div class="horizontal-scroll-track class-scroll-track">
+          {
+            popularCases.map((post) => (
+              <a href={`/cases/${post.id}/`} class="scroll-card">
+                <div class="card-image-container">
+                  {post.data.heroImage ? (
+                    <Image 
+                      width={200} 
+                      height={200} 
+                      src={post.data.heroImage} 
+                      alt="" 
+                    />
+                  ) : (
+                    <div style="width:100%; height:100%; background:#e0e0e0;" />
+                  )}
+                </div>
+                <h3 class="card-title">{post.data.title}</h3>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="carousel-indicators">
+          {popularCases.map((_, index) => (
             <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
           ))}
         </div>
