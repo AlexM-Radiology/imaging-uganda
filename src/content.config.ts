@@ -32,6 +32,7 @@ const cases = defineCollection({
       updatedDate: z.coerce.date().optional(),
       heroImage: z.optional(image()),
       category: z.string().optional(),
+      keywords: z.array(z.string()).optional(),
     }),
 });
 

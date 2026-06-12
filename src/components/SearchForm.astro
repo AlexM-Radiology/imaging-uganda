@@ -1,0 +1,145 @@
+---
+// components/SearchForm.astro
+---
+
+<form action="/search" method="GET" class="search-form" id="header-search-form">
+  <div class="search-input-wrapper">
+    <input 
+      type="search" 
+      name="q" 
+      id="header-search-input"
+      placeholder="Search..." 
+      aria-label="Search site" 
+      required 
+    />
+    <button type="submit" aria-label="Submit search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+    </button>
+  </div>
+</form>
+
+<script>
+  // Wait for the DOM to load and grab the form element
+  const searchForm = document.getElementById('header-search-form') as HTMLFormElement;
+  const searchInput = document.getElementById('header-search-input') as HTMLInputElement;
+
+  if (searchForm && searchInput) {
+    searchForm.addEventListener('submit', () => {
+      // Use a tiny timeout delay so the browser successfully reads 
+      // the value for the URL redirect before we clear out the text box
+      setTimeout(() => {
+        searchInput.value = '';
+        searchInput.blur(); // Optional: Removes active keyboard focus on mobile devices
+      }, 50);
+    });
+  }
+</script>
+
+<style>
+  .search-form {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-form input {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid transparent;
+    border-radius: 20px;
+    color: #ffffff;
+    padding: 0.45rem 2.2rem 0.45rem 1rem;
+    font-size: 0.9rem;
+    width: 180px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    outline: none;
+  }
+
+  .search-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .search-form input:focus {
+    background: #ffffff;
+    color: #1a252f;
+    width: 230px;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  }
+
+  .search-form input:focus::placeholder {
+    color: #95a5a6;
+  }
+
+  .search-form button {
+    position: absolute;
+    right: 4px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+  }
+
+  .search-form input:focus + button {
+    color: #2c3e50;
+  }
+
+  .search-form button:hover {
+    color: #ffffff;
+  }
+  
+  .search-form input:focus + button:hover {
+    color: #1a252f;
+  }
+
+  .search-form input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  /* --- Premium Mobile Overrides --- */
+  @media (max-width: 768px) {
+    .search-form {
+      margin: 0;
+      padding: 1.25rem 1.5rem;
+      background: rgba(0, 0, 0, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .search-input-wrapper {
+      width: 100%;
+    }
+
+    .search-form input {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.65rem 2.5rem 0.65rem 1.2rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .search-form input:focus {
+      width: 100%;
+      background: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .search-form button {
+      right: 8px;
+      padding: 8px;
+    }
+  }
+</style>

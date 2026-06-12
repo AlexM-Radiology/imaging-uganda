@@ -1,6 +1,7 @@
 ---
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
+import SearchForm from "./SearchForm.astro";
 ---
 
 <header id="main-header">
@@ -17,6 +18,8 @@ import HeaderLink from "./HeaderLink.astro";
       <HeaderLink href="/cases">Cases</HeaderLink>
       <HeaderLink href="/equipment">Equipment</HeaderLink>
       <HeaderLink href="/about">About</HeaderLink>
+      
+      <SearchForm />
     </div>
   </nav>
 </header>
@@ -27,7 +30,6 @@ import HeaderLink from "./HeaderLink.astro";
   const menuToggle = document.getElementById("menu-toggle");
   const navLinks = document.getElementById("nav-links");
 
-  // Helper function to explicitly close the menu
   function closeMenu() {
     if (menuToggle && navLinks) {
       menuToggle.setAttribute("aria-expanded", "false");
@@ -39,9 +41,7 @@ import HeaderLink from "./HeaderLink.astro";
   // --- Hamburger Menu Logic ---
   if (menuToggle && navLinks) {
     menuToggle.addEventListener("click", (event) => {
-      // Prevents the document listener from immediately closing the menu on toggle click
       event.stopPropagation();
-      
       const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
       menuToggle.setAttribute("aria-expanded", String(!isExpanded));
       menuToggle.classList.toggle("active");
@@ -52,8 +52,6 @@ import HeaderLink from "./HeaderLink.astro";
   // --- Click Outside to Close Logic ---
   document.addEventListener("click", (event) => {
     const target = event.target as Node;
-    
-    // Check if the menu is open and the click target is entirely outside the header container
     if (navLinks?.classList.contains("show") && header && !header.contains(target)) {
       closeMenu();
     }
@@ -62,13 +60,10 @@ import HeaderLink from "./HeaderLink.astro";
   // --- Scroll Logic ---
   window.addEventListener("scroll", () => {
     if (!header) return;
-
-    // Prevents header from hiding if mobile menu is currently open
     if (navLinks?.classList.contains("show")) return;
 
     const currentScrollY = window.scrollY;
 
-    // Don't hide the header if we are close to the top of the page
     if (currentScrollY <= 80) {
       header.classList.remove("scroll-down");
       header.classList.remove("scroll-up");
@@ -76,11 +71,9 @@ import HeaderLink from "./HeaderLink.astro";
     }
 
     if (currentScrollY > lastScrollY) {
-      // Scrolling Down
       header.classList.add("scroll-down");
       header.classList.remove("scroll-up");
     } else {
-      // Scrolling Up
       header.classList.add("scroll-up");
       header.classList.remove("scroll-down");
     }
@@ -135,6 +128,7 @@ import HeaderLink from "./HeaderLink.astro";
 
   .internal-links {
     display: flex;
+    align-items: center;
     gap: 1rem;
   }
 
@@ -143,6 +137,7 @@ import HeaderLink from "./HeaderLink.astro";
     color: #ffffff;
     border-bottom: 4px solid transparent;
     text-decoration: none;
+    white-space: nowrap;
   }
 
   nav a.active {
@@ -182,7 +177,6 @@ import HeaderLink from "./HeaderLink.astro";
   .hamburger::before { top: -6px; }
   .hamburger::after { top: 6px; }
 
-  /* Hamburger to 'X' animation */
   .menu-toggle.active .hamburger {
     background: transparent;
   }
@@ -208,8 +202,9 @@ import HeaderLink from "./HeaderLink.astro";
       width: 100%;
       background: #2c3e50;
       flex-direction: column;
+      align-items: stretch;
       gap: 0;
-      padding: 0;
+      padding: 0 0 1rem 0;
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease-in-out;
@@ -217,7 +212,7 @@ import HeaderLink from "./HeaderLink.astro";
     }
 
     .internal-links.show {
-      max-height: 350px; /* Safe capacity for all 5 navigational links */
+      max-height: 420px;
     }
 
     nav a {
@@ -237,6 +232,46 @@ import HeaderLink from "./HeaderLink.astro";
   @media (max-width: 350px) {
     .site-title {
       display: none;
+    }
+  }
+
+  /* --- Update just these lines inside Header.astro's @media (max-width: 768px) --- */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .internal-links {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #2c3e50;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 0; /* Changed from padding-bottom to 0 because search-form has its own padding now */
+      max-height: 0;
+      overflow: hidden;
+      transition: max-bezier(0.4, 0, 0.2, 1) 0.35s; /* Snappier animation */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 15%);
+    }
+
+    .internal-links.show {
+      max-height: 450px; /* Gives the new mobile search layout plenty of room */
+    }
+
+    nav a {
+      display: block;
+      padding: 1.1rem 1.5rem; /* Better balance with the mobile search bar */
+      border-bottom: none;
+      border-left: 4px solid transparent;
+    }
+
+    nav a.active {
+      border-bottom-color: transparent;
+      border-left-color: var(--accent);
+      background: rgba(255, 255, 255, 0.04);
     }
   }
 </style>
