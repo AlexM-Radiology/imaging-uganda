@@ -35,33 +35,61 @@ Built with Astro for blazing-fast performance and optimal SEO.
 
 ## 🚀 Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+The repository is organized like this:
 
 ```text
-├── public/                 # Static assets (images, fonts, etc.)
-├── src/
-│   ├── assets/            # Project assets (optimized images)
-│   ├── components/        # Reusable UI components
-│   │   ├── BaseHead.astro
-│   │   ├── Header.astro
-│   │   └── Footer.astro
-│   ├── content/           # Content collections
-│   │   ├── articles/      # Radiology articles (MDX)
-│   │   ├── cases/         # Clinical case studies (MDX)
-│   │   └── equipment/      # Medical equipment listings (MDX)
-│   ├── layouts/           # Page layouts
-│   │   └── Layout.astro
-│   ├── pages/             # Route pages
-│   │   ├── articles/      # Article listing & detail pages
-│   │   ├── cases/         # Case study pages
-│   │   ├── equipment/     # Equipment marketplace pages
-│   │   ├── about.astro
-│   │   ├── contact.astro
-│   │   └── index.astro
-│   ├── styles/            # Global styles
-│   └── utils/             # Utility functions
-│       └── currency.ts    # UGX currency formatting
-├── astro.config.mjs       # Astro configuration
-├── README.md
+├── astro.config.mjs
 ├── package.json
-└── tsconfig.json
+├── package-lock.json
+├── README.md
+├── tsconfig.json
+├── public/
+│   └── robots.txt
+└── src/
+	├── assets/
+	│   ├── fonts/
+	│   ├── favicon.jpg
+	│   ├── logo.jpg
+	│   └── ...
+	├── components/
+	│   ├── AdSense.astro
+	│   ├── BaseHead.astro
+	│   ├── CVPageLayout.astro
+	│   ├── Footer.astro
+	│   ├── FormattedDate.astro
+	│   ├── Header.astro
+	│   ├── HeaderLink.astro
+	│   ├── ImageGrid.astro
+	│   ├── Pagination.astro
+	│   ├── PostList.astro
+	│   └── SearchForm.astro
+	├── content/
+	│   ├── articles/
+	│   ├── cases/
+	│   ├── cvs/
+	│   └── equipment/
+	├── images/
+	├── layouts/
+	│   ├── ArticlesPost.astro
+	│   ├── CasesPost.astro
+	│   └── PostPage.astro
+	├── pages/
+	│   ├── 404.astro
+	│   ├── about.astro
+	│   ├── articles/
+	│   ├── cases/
+	│   ├── contact.astro
+	│   ├── cvs/
+	│   ├── equipment/
+	│   ├── index.astro
+	│   ├── privacy-policy.astro
+	│   ├── rss.xml.js
+	│   └── search.astro
+	├── scripts/
+	├── styles/
+	│   └── global.css
+	├── utils/
+	│   └── equipment.ts
+	├── consts.ts
+	└── content.config.ts
+```
