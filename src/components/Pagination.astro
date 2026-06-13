@@ -5,7 +5,23 @@ const { currentPage, totalPages, basePath } = Astro.props as {
   basePath: string;
 };
 
-const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+// --- Sliding Window Logic ---
+const maxVisiblePages = 4;
+let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+let endPage = startPage + maxVisiblePages - 1;
+
+// Adjust if the window goes past the total pages
+if (endPage > totalPages) {
+  endPage = totalPages;
+  startPage = Math.max(1, endPage - maxVisiblePages + 1);
+}
+
+// Generate only the visible page numbers
+const visiblePageNumbers = Array.from(
+  { length: endPage - startPage + 1 },
+  (_, index) => startPage + index
+);
+
 const prevPage = currentPage - 1;
 const nextPage = currentPage + 1;
 ---
@@ -21,7 +37,7 @@ const nextPage = currentPage + 1;
         </li>
       ) : null}
 
-      {pageNumbers.map((page) => (
+      {visiblePageNumbers.map((page) => (
         <li>
           <a
             class={page === currentPage ? 'active' : ''}
