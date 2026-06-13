@@ -5,20 +5,33 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
+type SearchIndexItem = {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  heroImage: string;
+  body: string;
+  keywords: string[];
+  keywordsText: string;
+};
+
 // 1. Fetch data from your collections
 const articles = await getCollection('articles');
 const cases = await getCollection('cases');
 const equipment = await getCollection('equipment');
 
 // 2. Normalize and pass raw image string sources down to the client index wrapper
-const searchIndex = [
+const searchIndex: SearchIndexItem[] = [
   ...articles.map(item => ({
     id: `/articles/${item.id}/`,
     title: item.data.title,
     description: item.data.description,
     category: item.data.category || 'Article',
     heroImage: item.data.heroImage?.src || '', 
-    body: item.body || ''
+    body: item.body || '',
+    keywords: item.data.keywords || [],
+    keywordsText: item.data.keywords?.join(' ') || ''
   })),
   ...cases.map(item => ({
     id: `/cases/${item.id}/`,
@@ -26,7 +39,9 @@ const searchIndex = [
     description: item.data.description,
     category: item.data.category || 'Clinical Case',
     heroImage: item.data.heroImage?.src || '',
-    body: item.body || ''
+    body: item.body || '',
+    keywords: item.data.keywords || [],
+    keywordsText: item.data.keywords?.join(' ') || ''
   })),
   ...equipment.map(item => ({
     id: `/equipment/${item.id}/`,
@@ -34,7 +49,9 @@ const searchIndex = [
     description: item.data.description,
     category: item.data.category || 'Equipment',
     heroImage: item.data.images?.[0]?.src || '', 
-    body: item.body || ''
+    body: item.body || '',
+    keywords: [] as string[],
+    keywordsText: ''
   }))
 ];
 ---
@@ -73,10 +90,8 @@ const searchIndex = [
     category: string;
     heroImage: string;
     body: string;
-  }
-
-  interface FuseResult {
-    item: SearchItem;
+    keywords: string[];
+    keywordsText: string;
   }
 
   const bridgeElement = document.getElementById('search-data-bridge');
@@ -99,6 +114,7 @@ const searchIndex = [
       { name: 'title', weight: 1.0 },
       { name: 'category', weight: 0.6 },
       { name: 'description', weight: 0.4 },
+      { name: 'keywordsText', weight: 0.8 },
       { name: 'body', weight: 0.1 }
     ],
     threshold: 0.2,
@@ -115,8 +131,16 @@ const searchIndex = [
       statusText.textContent = "Please enter a clinical symptom, modality, or equipment name above to search.";
       resultsList.innerHTML = "";
     } else {
+      const queryLower = cleanQuery.toLowerCase();
+      const keywordMatches = searchIndex.filter((item) =>
+        item.keywords.some((keyword) => keyword.toLowerCase().includes(queryLower))
+      );
       const fuse = new Fuse(searchIndex, fuseOptions);
-      const results = fuse.search(cleanQuery) as unknown as FuseResult[];
+      const fuzzyMatches = fuse.search(cleanQuery) as Array<{ item: SearchItem }>;
+      const results = [
+        ...keywordMatches,
+        ...fuzzyMatches.map(({ item }) => item).filter((item) => !keywordMatches.some((match) => match.id === item.id))
+      ];
 
       if (results.length === 0) {
         statusText.textContent = `No matches found for "${cleanQuery}". Try searching for broader terms like "Ultrasound", "X-Ray", or "Thyroiditis".`;
@@ -124,7 +148,7 @@ const searchIndex = [
       } else {
         statusText.textContent = `Found ${results.length} relevant match(es).`;
         
-        resultsList.innerHTML = results.map(({ item }) => {
+        resultsList.innerHTML = results.map((item) => {
           return `
             <li>
               <a href="${item.id}">
