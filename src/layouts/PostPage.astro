@@ -5,7 +5,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
-const { title, description, pubDate, updatedDate } = Astro.props;
+const { title, description, keywords, pubDate, updatedDate } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 const articleSchema = JSON.stringify({
 	"@context": "https://schema.org",
@@ -33,7 +33,7 @@ const articleSchema = JSON.stringify({
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} schema={articleSchema} />
+    <BaseHead title={title} description={description} keywords={keywords} schema={articleSchema} />
 
     <style>
       main {
