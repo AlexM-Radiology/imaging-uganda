@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets'; // Importing Astro's optimized Image component
+import errorImage from '../assets/404.jpg'; // Adjusting path assuming assets/ is at src/assets/
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
@@ -22,11 +24,13 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
         max-width: 650px;
       }
       .error-image {
+        display: block;
         width: 100%;
-        max-height: 300px;
-        object-fit: cover;
+        max-width: 250px; /* Reduced the size so it doesn't overpower the layout */
+        height: auto;
+        object-fit: contain; /* Prevents clipping or warping */
         border-radius: 6px;
-        margin: 1.5rem 0;
+        margin: 1.5rem auto; /* Centers the image perfectly */
       }
       .navigation-suggestions {
         margin-top: 2.5rem;
@@ -71,9 +75,9 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
           The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. Please check the URL for spelling errors.
         </p>
 
-        <img 
-          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
-          alt="Medical professional reviewing documentation" 
+        <Image 
+          src={errorImage} 
+          alt="404 Page Not Found error illustration" 
           class="error-image"
         />
 
