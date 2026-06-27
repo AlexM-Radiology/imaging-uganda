@@ -5,29 +5,40 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
-const { title, description, keywords, pubDate, updatedDate } = Astro.props;
+// 1. Destructure author and authorCv from Astro.props
+const { title, description, keywords, pubDate, updatedDate, author, authorCv } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+// 2. Dynamically build the author schema object based on availability
+const authorSchema = author 
+  ? {
+      "@type": "Person",
+      "name": author,
+      ...(authorCv && { "url": new URL(authorCv, Astro.site).toString() })
+    }
+  : {
+      "@type": "Organization",
+      "name": SITE_TITLE,
+    };
+
 const articleSchema = JSON.stringify({
-	"@context": "https://schema.org",
-	"@type": "Article",
-	"mainEntityOfPage": {
-		"@type": "WebPage",
-		"@id": canonicalURL,
-	},
-	"headline": title,
-	"description": description,
-	"url": canonicalURL,
-	"inLanguage": "en-US",
-	"author": {
-		"@type": "Organization",
-		"name": SITE_TITLE,
-	},
-	"publisher": {
-		"@type": "Organization",
-		"name": SITE_TITLE,
-	},
-	"datePublished": new Date(pubDate).toISOString(),
-	"dateModified": updatedDate ? new Date(updatedDate).toISOString() : new Date(pubDate).toISOString(),
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": canonicalURL,
+  },
+  "headline": title,
+  "description": description,
+  "url": canonicalURL,
+  "inLanguage": "en-US",
+  "author": authorSchema, // Use the dynamic author schema here
+  "publisher": {
+    "@type": "Organization",
+    "name": SITE_TITLE,
+  },
+  "datePublished": new Date(pubDate).toISOString(),
+  "dateModified": updatedDate ? new Date(updatedDate).toISOString() : new Date(pubDate).toISOString(),
 });
 ---
 
@@ -57,15 +68,23 @@ const articleSchema = JSON.stringify({
         font-size: 25px;
         color: rgb(0, 191, 255);
       }
-      .date {
+      /* Uniform line container for all metadata entries */
+      .meta-data {
         margin-bottom: 0.5em;
         color: rgb(var(--gray));
         font-style: italic;
-        display: inline-block;
+        display: block; /* Ensures the whole meta line stays together above the title */
       }
-      .last-updated-on {
-        font-style: italic;
-        display: inline-block;
+      .last-updated-on,
+      .author-byline {
+        display: inline;
+      }
+      .author-link {
+        color: #007efc;;
+        text-decoration: none;
+      }
+      .author-link:hover {
+        text-decoration: underline;
       }
     </style>
   </head>
@@ -76,13 +95,25 @@ const articleSchema = JSON.stringify({
       <article>
         <div class="prose">
           <div class="title">
-            <div class="date">
-              Published on: <FormattedDate date={pubDate} />
+            <!-- Changed class name to meta-data to reflect everything inside it -->
+            <div class="meta-data">
+              <span>Published on: <FormattedDate date={pubDate} /></span>
               {
                 updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
+                  <span class="last-updated-on">
+                    {" "}• Last updated on <FormattedDate date={updatedDate} />
+                  </span>
+                )
+              }
+              {
+                author && (
+                  <span class="author-byline">
+                    {" "}• By: {authorCv ? (
+                      <a href={authorCv} class="author-link">{author}</a>
+                    ) : (
+                      <span>{author}</span>
+                    )}
+                  </span>
                 )
               }
             </div>

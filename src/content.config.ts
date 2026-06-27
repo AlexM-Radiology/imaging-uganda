@@ -17,6 +17,9 @@ const articles = defineCollection({
       heroImage: z.optional(image()),
       category: z.string().optional(),
       keywords: z.array(z.string()).optional(),
+      // Add author fields here:
+      author: z.string().optional(),
+      authorCv: z.string().optional(),
     }),
 });
 
@@ -34,6 +37,9 @@ const cases = defineCollection({
       heroImage: z.optional(image()),
       category: z.string().optional(),
       keywords: z.array(z.string()).optional(),
+      // Add author fields here too if cases can have authors:
+      author: z.string().optional(),
+      authorCv: z.string().optional(),
     }),
 });
 
