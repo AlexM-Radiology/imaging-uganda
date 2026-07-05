@@ -124,6 +124,7 @@ import SearchForm from "./SearchForm.astro";
     padding: 0 1em;
     margin: 0 auto;
     min-height: 60px;
+    position: relative;
   }
 
   .internal-links {
@@ -191,79 +192,37 @@ import SearchForm from "./SearchForm.astro";
 
   /* --- Responsive Breakpoint --- */
   @media (max-width: 768px) {
+    nav {
+      padding: 0 1rem;
+    }
+
     .menu-toggle {
       display: block;
     }
 
     .internal-links {
       position: absolute;
-      top: 100%;
+      top: calc(100% + 0.25rem);
       left: 0;
       width: 100%;
       background: #2c3e50;
       flex-direction: column;
       align-items: stretch;
       gap: 0;
-      padding: 0 0 1rem 0;
+      padding: 0.25rem 0 1rem;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease-in-out;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 10%);
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
     }
 
     .internal-links.show {
-      max-height: 420px;
+      max-height: 450px;
     }
 
     nav a {
       display: block;
-      padding: 1rem 2rem;
-      border-bottom: none;
-      border-left: 4px solid transparent;
-    }
-
-    nav a.active {
-      border-bottom-color: transparent;
-      border-left-color: var(--accent);
-      background: rgba(255, 255, 255, 0.05);
-    }
-  }
-
-  @media (max-width: 350px) {
-    .site-title {
-      display: none;
-    }
-  }
-
-  /* --- Update just these lines inside Header.astro's @media (max-width: 768px) --- */
-  @media (max-width: 768px) {
-    .menu-toggle {
-      display: block;
-    }
-
-    .internal-links {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      width: 100%;
-      background: #2c3e50;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      padding: 0; /* Changed from padding-bottom to 0 because search-form has its own padding now */
-      max-height: 0;
-      overflow: hidden;
-      transition: max-bezier(0.4, 0, 0.2, 1) 0.35s; /* Snappier animation */
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 15%);
-    }
-
-    .internal-links.show {
-      max-height: 450px; /* Gives the new mobile search layout plenty of room */
-    }
-
-    nav a {
-      display: block;
-      padding: 1.1rem 1.5rem; /* Better balance with the mobile search bar */
+      padding: 1rem 1.5rem;
       border-bottom: none;
       border-left: 4px solid transparent;
     }
@@ -272,6 +231,12 @@ import SearchForm from "./SearchForm.astro";
       border-bottom-color: transparent;
       border-left-color: var(--accent);
       background: rgba(255, 255, 255, 0.04);
+    }
+  }
+
+  @media (max-width: 350px) {
+    .site-title {
+      display: none;
     }
   }
 </style>
