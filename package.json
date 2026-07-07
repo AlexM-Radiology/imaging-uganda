@@ -12,11 +12,15 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.1",
     "@astrojs/mdx": "^7.0.0",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^7.0.2",
     "fuse.js": "^7.4.2",
+    "markdown-it-container": "^4.0.0",
+    "remark-container": "^0.1.2",
+    "remark-directive": "^4.0.0",
     "sharp": "^0.34.3"
   }
 }

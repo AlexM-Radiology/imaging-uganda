@@ -3,11 +3,19 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import remarkContainers from './remark-containers.mjs';
+import rehypeContainers from './rehype-containers.mjs';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://imaginguganda.com',
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx({
+			remarkPlugins: [],
+			rehypePlugins: [rehypeContainers],
+		}),
+		sitemap(),
+	],
 	fonts: [
 		{
 			provider: fontProviders.local(),
