@@ -14,7 +14,31 @@ export default defineConfig({
 			remarkPlugins: [],
 			rehypePlugins: [rehypeContainers],
 		}),
-		sitemap(),
+		sitemap({
+			filter: (page) => {
+				// Exclude pagination pages (articles/1/, articles/2/, etc.)
+				if (page.match(/\/articles\/\d+\/$/)) return false;
+				if (page.match(/\/cases\/\d+\/$/)) return false;
+				
+				// Exclude search page
+				if (page.includes('/search/')) return false;
+				
+				// Exclude CV/profile pages (if they shouldn't be indexed)
+				if (page.includes('/cvs/')) return false;
+				
+				// Keep all other pages
+				return true;
+			},
+			// Optional: Set custom priorities for your important pages
+			// If you want to set specific changefreq/priority, you can add:
+			// serialize(item) {
+			//   if (item.url === 'https://imaginguganda.com/') {
+			//     item.changefreq = 'daily';
+			//     item.priority = 1.0;
+			//   }
+			//   return item;
+			// },
+		}),
 	],
 	fonts: [
 		{
