@@ -8,7 +8,7 @@ import rehypeContainers from './rehype-containers.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://imaginguganda.com',
+	site: 'https://www.imaginguganda.com',
 	integrations: [
 		mdx({
 			remarkPlugins: [],
