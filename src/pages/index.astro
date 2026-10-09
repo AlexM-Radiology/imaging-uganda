@@ -97,7 +97,7 @@ const equipmentItems = (await getCollection('equipment'))
         width: 100% !important;
         overflow-x: auto !important; 
         overflow-y: hidden !important;
-        scroll-snap-type: x mandatory !important;
+        scroll-snap-type: x proximity !important;
         padding-bottom: 0.5rem;
         margin-bottom: 0.75rem; 
         box-sizing: border-box !important;
@@ -105,10 +105,16 @@ const equipmentItems = (await getCollection('equipment'))
       }
 
       .horizontal-scroll-track::-webkit-scrollbar {
-        display: none !important;
+        height: 6px;
       }
       .horizontal-scroll-track {
-        scrollbar-width: none !important;
+        scrollbar-width: thin;
+        scrollbar-color: #94a3b8 transparent;
+      }
+
+      .horizontal-scroll-track::-webkit-scrollbar-thumb {
+        background: #94a3b8;
+        border-radius: 999px;
       }
 
       .scroll-card {
@@ -152,33 +158,6 @@ const equipmentItems = (await getCollection('equipment'))
 
       .scroll-card:hover .card-title {
         color: #007c89 !important;
-      }
-
-      /* Custom Indicator Dots */
-      .carousel-indicators {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: 0.35rem !important;
-        margin-bottom: 2rem !important;
-        width: 100% !important;
-        height: 10px !important;
-      }
-
-      .dot {
-        width: 6px !important;
-        height: 6px !important;
-        background-color: #cccccc !important;
-        border-radius: 50% !important;
-        display: block !important; 
-        padding: 0 !important;
-        transition: all 0.25s ease;
-      }
-
-      .dot.active {
-        width: 14px !important; 
-        border-radius: 4px !important;
-        background-color: #007c89 !important;
       }
 
       .equipment-grid {
@@ -305,11 +284,6 @@ const equipmentItems = (await getCollection('equipment'))
           }
         </div>
 
-        <div class="carousel-indicators">
-          {recentArticles.map((_, index) => (
-            <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
-          ))}
-        </div>
       </section>
 
       <section class="carousel-section-wrapper">
@@ -340,11 +314,6 @@ const equipmentItems = (await getCollection('equipment'))
           }
         </div>
 
-        <div class="carousel-indicators">
-          {popularCases.map((_, index) => (
-            <span class={`dot ${index === 0 ? 'active' : ''}`}></span>
-          ))}
-        </div>
       </section>
 
       <section class="equipment-section-container">
@@ -399,50 +368,5 @@ const equipmentItems = (await getCollection('equipment'))
       </section>
     </main>
     <Footer />
-
-    <script>
-      // 1. Mouse wheel horizontal scroll handler for desktops
-      const tracks = document.querySelectorAll('.class-scroll-track');
-      tracks.forEach((track) => {
-        track.addEventListener('wheel', (evt) => {
-          if ((evt as WheelEvent).deltaY !== 0) {
-            evt.preventDefault();
-            track.scrollLeft += (evt as WheelEvent).deltaY;
-          }
-        }, { passive: false });
-      });
-
-      // 2. Dynamic Scroll Dot Indicator Handler
-      const sections = document.querySelectorAll('.carousel-section-wrapper');
-
-      sections.forEach((section) => {
-        const track = section.querySelector('.horizontal-scroll-track');
-        const dots = section.querySelectorAll('.dot');
-        const cards = section.querySelectorAll('.scroll-card');
-
-        if (!track || dots.length === 0 || cards.length === 0) return;
-
-        const observerOptions = {
-          root: track,
-          threshold: 0.6,
-          rootMargin: '0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const cardIndex = Array.from(cards).indexOf(entry.target);
-              
-              if (cardIndex !== -1 && dots[cardIndex]) {
-                dots.forEach(dot => dot.classList.remove('active'));
-                dots[cardIndex].classList.add('active');
-              }
-            }
-          });
-        }, observerOptions);
-
-        cards.forEach(card => observer.observe(card));
-      });
-    </script>
   </body>
 </html>
