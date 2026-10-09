@@ -68,7 +68,7 @@ body {
 
 main {
   width: 100%;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: calc(var(--header-height) + 1rem) 1em 3em 1em !important;
 }
