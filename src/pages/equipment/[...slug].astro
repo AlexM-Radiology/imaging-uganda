@@ -174,11 +174,11 @@ const { displayCurrency, displayPrice } = formatProductPrice(
           ) : (
             <p style="color: red; font-weight: bold;">Out of Stock</p>
           )}
-          <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
-          <div class="prose">
-            <Content />
-          </div>
         </div>
+      </div>
+      <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 2rem 0;" />
+      <div class="prose">
+        <Content />
       </div>
       {relatedProducts.length > 0 && (
         <section class="related-equipment" aria-labelledby="related-equipment-title">
