@@ -14,8 +14,7 @@ const popularCases = (await getCollection('cases'))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 7);
 
-const equipmentItems = (await getCollection('equipment'))
-  .slice(0, 6);
+const equipmentItems = await getCollection('equipment');
 ---
 
 <!doctype html>
@@ -179,6 +178,10 @@ const equipmentItems = (await getCollection('equipment'))
         position: relative;
       }
 
+      .equipment-card[hidden] {
+        display: none;
+      }
+
       .equipment-image-container {
         position: relative;
         width: 100%;
@@ -324,7 +327,7 @@ const equipmentItems = (await getCollection('equipment'))
 
         <div class="equipment-grid">
           {
-            equipmentItems.map((product) => {
+            equipmentItems.map((product, index) => {
               const originalCurrency = product.data.currency ?? DEFAULT_CURRENCY;
               let displayCurrency = originalCurrency;
               let displayPrice = product.data.price;
@@ -338,7 +341,7 @@ const equipmentItems = (await getCollection('equipment'))
               const fallbackDiscount = displayPrice > 5000000 ? 15 : displayPrice > 1000000 ? 25 : 38;
 
               return (
-                <a href={`/equipment/${product.id}/`} class="equipment-card">
+                <a href={`/equipment/${product.id}/`} class="equipment-card" hidden={index >= 6}>
                   <div class="equipment-image-container">
                     <span class="badge-discount">-{fallbackDiscount}%</span>
                     {product.data.images && product.data.images.length > 0 ? (
@@ -368,5 +371,39 @@ const equipmentItems = (await getCollection('equipment'))
       </section>
     </main>
     <Footer />
+    <script>
+      const equipmentGrid = document.querySelector<HTMLDivElement>('.equipment-grid');
+
+      if (equipmentGrid) {
+        const equipmentCards = Array.from(
+          equipmentGrid.querySelectorAll<HTMLAnchorElement>('.equipment-card'),
+        );
+        const dateSeed = new Date().toISOString().slice(0, 10);
+        let seed = 2166136261;
+
+        for (const character of dateSeed) {
+          seed = Math.imul(seed ^ character.charCodeAt(0), 16777619);
+        }
+
+        seed >>>= 0;
+        const nextRandom = () => {
+          seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+          return seed / 4294967296;
+        };
+
+        for (let index = equipmentCards.length - 1; index > 0; index -= 1) {
+          const swapIndex = Math.floor(nextRandom() * (index + 1));
+          [equipmentCards[index], equipmentCards[swapIndex]] = [
+            equipmentCards[swapIndex],
+            equipmentCards[index],
+          ];
+        }
+
+        equipmentCards.forEach((card, index) => {
+          card.hidden = index >= 6;
+          equipmentGrid.append(card);
+        });
+      }
+    </script>
   </body>
 </html>
