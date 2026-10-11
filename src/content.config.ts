@@ -14,7 +14,7 @@ const articles = defineCollection({
       // Transform string to Date object
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
-      heroImage: z.optional(image()),
+      heroImage: z.optional(image()).optional(),
       category: z.string().optional(),
       keywords: z.array(z.string()).optional(),
       // Add author fields here:
@@ -34,7 +34,7 @@ const cases = defineCollection({
       // Transform string to Date object
       pubDate: z.coerce.date(),
       updatedDate: z.coerce.date().optional(),
-      heroImage: z.optional(image()),
+      heroImage: z.optional(image()).optional(),
       category: z.string().optional(),
       keywords: z.array(z.string()).optional(),
       // Add author fields here too if cases can have authors:
