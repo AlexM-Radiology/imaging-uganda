@@ -6,15 +6,37 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, USD_TO_UGX, DEFAULT_CURRENCY } from '../consts';
 
-const recentArticles = (await getCollection('articles'))
+const allArticles = await getCollection('articles');
+const allCases = await getCollection('cases');
+
+const recentArticles = allArticles
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 7);
 
-const popularCases = (await getCollection('cases'))
+const popularCases = allCases
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 7);
 
 const equipmentItems = await getCollection('equipment');
+
+const suggestedArticles = allArticles.map((post) => ({
+  title: post.data.title,
+  href: `/articles/${post.id}/`,
+  category: 'Article',
+  image: post.data.heroImage,
+}));
+const suggestedCases = allCases.map((post) => ({
+  title: post.data.title,
+  href: `/cases/${post.id}/`,
+  category: 'Case study',
+  image: post.data.heroImage,
+}));
+const suggestedItems = [
+  ...suggestedArticles.slice(0, 2),
+  ...suggestedCases.slice(0, 2),
+  ...suggestedArticles.slice(2),
+  ...suggestedCases.slice(2),
+];
 ---
 
 <!doctype html>
@@ -238,6 +260,149 @@ const equipmentItems = await getCollection('equipment');
         color: #000000;
       }
 
+      .suggested-section {
+        position: relative;
+        margin-top: 2.5rem;
+        padding: 1.25rem;
+        overflow: hidden;
+        border: 1px solid #dbeafe;
+        border-radius: 20px;
+        background:
+          radial-gradient(ellipse at top right, rgba(45, 212, 191, 0.2), transparent 48%),
+          linear-gradient(135deg, #eff6ff 0%, #f8fafc 55%, #ecfeff 100%);
+      }
+
+      .suggested-section::before {
+        position: absolute;
+        top: -48px;
+        right: -36px;
+        width: 150px;
+        height: 150px;
+        border: 1px solid rgba(14, 116, 144, 0.12);
+        border-radius: 50%;
+        content: '';
+        pointer-events: none;
+      }
+
+      .suggested-heading {
+        position: relative;
+        margin-bottom: 1rem;
+      }
+
+      .suggested-eyebrow {
+        margin: 0 0 0.35rem;
+        color: #0e7490;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      .suggested-title {
+        margin: 0;
+        color: #102a43;
+        font-size: 1.45rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+
+      .suggested-description {
+        max-width: 32rem;
+        margin: 0.4rem 0 0;
+        color: #486581;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .suggested-grid {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+      }
+
+      .suggested-card {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.7rem;
+        border: 1px solid rgba(203, 213, 225, 0.8);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.88);
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+        color: inherit;
+        text-decoration: none;
+        transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+      }
+
+      .suggested-card[hidden] {
+        display: none;
+      }
+
+      .suggested-card:hover {
+        transform: translateY(-2px);
+        border-color: #67e8f9;
+        box-shadow: 0 10px 24px rgba(15, 118, 110, 0.12);
+      }
+
+      .suggested-thumbnail {
+        display: grid;
+        width: 64px;
+        height: 64px;
+        flex: 0 0 64px;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #cffafe, #dbeafe);
+        color: #0e7490;
+      }
+
+      .suggested-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .suggested-thumbnail svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .suggested-card-content {
+        min-width: 0;
+      }
+
+      .suggested-category {
+        display: block;
+        margin-bottom: 0.25rem;
+        color: #0e7490;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .suggested-card-title {
+        display: -webkit-box;
+        margin: 0;
+        overflow: hidden;
+        color: #102a43;
+        font-size: 0.88rem;
+        font-weight: 700;
+        line-height: 1.35;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+
+      .suggested-arrow {
+        margin-left: auto;
+        padding-left: 0.25rem;
+        color: #0e7490;
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
       @media (min-width: 550px) {
         .scroll-card {
           flex: 0 0 28% !important;
@@ -247,6 +412,13 @@ const equipmentItems = await getCollection('equipment');
         .equipment-grid {
           grid-template-columns: repeat(3, 1fr); /* Scales clean to 3 items on wide devices */
           gap: 16px;
+        }
+        .suggested-section {
+          padding: 1.5rem;
+        }
+        .suggested-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 0.75rem;
         }
       }
     </style>
@@ -369,9 +541,105 @@ const equipmentItems = await getCollection('equipment');
           }
         </div>
       </section>
+
+      <section class="suggested-section" aria-labelledby="suggested-title">
+        <div class="suggested-heading">
+          <p class="suggested-eyebrow">Picked for curious minds</p>
+          <h2 class="suggested-title" id="suggested-title">Suggested for you</h2>
+          <p class="suggested-description">
+            A few useful reads and real-world cases to keep your learning moving.
+          </p>
+        </div>
+
+        <div class="suggested-grid">
+          {
+            suggestedItems.map((item, index) => (
+              <a
+                href={item.href}
+                class="suggested-card"
+                data-suggested-card
+                data-suggested-category={item.category}
+                hidden={index >= 4}
+              >
+                <div class="suggested-thumbnail" aria-hidden="true">
+                  {item.image ? (
+                    <Image width={128} height={128} src={item.image} alt="" loading="lazy" />
+                  ) : (
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M5 4.75A1.75 1.75 0 0 1 6.75 3H20v15H7a2 2 0 0 0-2 2V4.75ZM5 20a2 2 0 0 1 2-2h13"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path d="M9 7h7M9 10h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                    </svg>
+                  )}
+                </div>
+                <div class="suggested-card-content">
+                  <span class="suggested-category">{item.category}</span>
+                  <h3 class="suggested-card-title">{item.title}</h3>
+                </div>
+                <span class="suggested-arrow" aria-hidden="true">→</span>
+              </a>
+            ))
+          }
+        </div>
+      </section>
     </main>
     <Footer />
     <script>
+      const suggestedGrid = document.querySelector<HTMLDivElement>('.suggested-grid');
+
+      if (suggestedGrid) {
+        const suggestedCards = Array.from(
+          suggestedGrid.querySelectorAll<HTMLAnchorElement>('[data-suggested-card]'),
+        );
+        const reshuffleSuggestions = () => {
+          const halfHourWindow = Math.floor(Date.now() / (30 * 60 * 1000));
+          let seed = halfHourWindow >>> 0;
+          const nextRandom = () => {
+            seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+            return seed / 4294967296;
+          };
+          const shuffle = (cards: HTMLAnchorElement[]) => {
+            for (let index = cards.length - 1; index > 0; index -= 1) {
+              const swapIndex = Math.floor(nextRandom() * (index + 1));
+              [cards[index], cards[swapIndex]] = [cards[swapIndex], cards[index]];
+            }
+            return cards;
+          };
+
+          const articles = shuffle(
+            suggestedCards.filter((card) => card.dataset.suggestedCategory === 'Article'),
+          );
+          const cases = shuffle(
+            suggestedCards.filter((card) => card.dataset.suggestedCategory === 'Case study'),
+          );
+          const selectedCards = shuffle([...articles.slice(0, 2), ...cases.slice(0, 2)]);
+
+          suggestedCards.forEach((card) => {
+            card.hidden = true;
+          });
+          selectedCards.forEach((card) => {
+            card.hidden = false;
+            suggestedGrid.append(card);
+          });
+        };
+        const scheduleNextReshuffle = () => {
+          const millisecondsPerWindow = 30 * 60 * 1000;
+          const delay = millisecondsPerWindow - (Date.now() % millisecondsPerWindow);
+          window.setTimeout(() => {
+            reshuffleSuggestions();
+            scheduleNextReshuffle();
+          }, delay);
+        };
+
+        reshuffleSuggestions();
+        scheduleNextReshuffle();
+      }
+
       const equipmentGrid = document.querySelector<HTMLDivElement>('.equipment-grid');
 
       if (equipmentGrid) {
