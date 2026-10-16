@@ -17,7 +17,17 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'equipment'>;
 
 const product = Astro.props;
-const { title, description, price, currency, discount, images = [], phoneNumber, inStock } = product.data;
+const {
+  title,
+  description,
+  price,
+  currency,
+  discount,
+  keywords,
+  images = [],
+  phoneNumber,
+  inStock,
+} = product.data;
 const relatedProducts = (await getCollection('equipment'))
   .filter((item) => item.id !== product.id)
   .sort((a, b) => {
@@ -40,7 +50,7 @@ const { displayCurrency, displayPrice, discountedPrice } = formatProductPrice(
 <!doctype html>
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} keywords={keywords} />
     <style>
       main {
         max-width: 900px;

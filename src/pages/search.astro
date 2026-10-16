@@ -51,8 +51,8 @@ const searchIndex: SearchIndexItem[] = [
     category: item.data.category || 'Equipment',
     heroImage: item.data.images?.[0]?.src || '', 
     body: item.body || '',
-    keywords: [] as string[],
-    keywordsText: ''
+    keywords: item.data.keywords,
+    keywordsText: item.data.keywords.join(' ')
   }))
 ];
 ---
