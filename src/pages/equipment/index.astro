@@ -41,9 +41,22 @@ const siteOrigin = Astro.url.origin;
         background: #fff;
       }
       .image-wrapper {
+        position: relative;
         width: 100%;
         height: 200px;
         background: #f8fafc;
+      }
+      .badge-discount {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        z-index: 1;
+        border-radius: 4px;
+        padding: 0.25rem 0.5rem;
+        background: #feefe7;
+        color: #f68b1e;
+        font-size: 0.75rem;
+        font-weight: 700;
       }
       .image-wrapper img {
         width: 100%;
@@ -66,6 +79,12 @@ const siteOrigin = Astro.url.origin;
         font-weight: 700;
         color: #007c89;
         margin-bottom: 1rem;
+      }
+      .original-price {
+        margin-right: 0.35rem;
+        color: #64748b;
+        font-size: 0.95rem;
+        font-weight: 400;
       }
       .btn {
         display: block;
@@ -93,17 +112,21 @@ const siteOrigin = Astro.url.origin;
       <ul class="grid">
         {products.map((product) => {
           const specificProductUrl = `${siteOrigin}/equipment/${product.id}/`;
-          const { displayCurrency, displayPrice } = formatProductPrice(
+          const { displayCurrency, displayPrice, discountedPrice } = formatProductPrice(
             product.data.price,
             product.data.currency,
             USD_TO_UGX,
             DEFAULT_CURRENCY,
+            product.data.discount,
           );
 
           return (
             <li class="card">
               <a href={`/equipment/${product.id}/`}>
                 <div class="image-wrapper">
+                  {product.data.discount > 0 && (
+                    <span class="badge-discount">-{product.data.discount}%</span>
+                  )}
                   {product.data.images && product.data.images.length > 0 ? (
                     <Image 
                       width={400} 
@@ -120,9 +143,20 @@ const siteOrigin = Astro.url.origin;
               </a>
               <div class="info">
                 <h3 class="title">{product.data.title}</h3>
-                <p class="price">{displayCurrency} {displayPrice.toLocaleString()}</p>
+                <p class="price">
+                  {discountedPrice !== undefined && (
+                    <s class="original-price">{displayCurrency} {displayPrice.toLocaleString()}</s>
+                  )}
+                  {displayCurrency} {(discountedPrice ?? displayPrice).toLocaleString()}
+                </p>
                 <a 
-                  href={getWhatsAppLink(product.data.phoneNumber, product.data.title, displayPrice, displayCurrency, specificProductUrl)} 
+                  href={getWhatsAppLink(
+                    product.data.phoneNumber,
+                    product.data.title,
+                    discountedPrice ?? displayPrice,
+                    displayCurrency,
+                    specificProductUrl,
+                  )}
                   class="btn" 
                   target="_blank" 
                   rel="noopener noreferrer"

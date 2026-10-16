@@ -3,19 +3,19 @@ export function formatProductPrice(
   currency: string | undefined,
   usdToUgx: number,
   defaultCurrency: string,
+  discount = 0,
 ) {
   const originalCurrency = currency ?? defaultCurrency;
-
-  if (originalCurrency === 'USD') {
-    return {
-      displayCurrency: 'UGX',
-      displayPrice: Math.round(price * usdToUgx),
-    };
-  }
+  const displayCurrency = originalCurrency === 'USD' ? 'UGX' : originalCurrency;
+  const toDisplayCurrency = (amount: number) =>
+    originalCurrency === 'USD' ? Math.round(amount * usdToUgx) : amount;
 
   return {
-    displayCurrency: originalCurrency,
-    displayPrice: price,
+    displayCurrency,
+    displayPrice: toDisplayCurrency(price),
+    discountedPrice: discount > 0
+      ? toDisplayCurrency(price * (1 - discount / 100))
+      : undefined,
   };
 }
 

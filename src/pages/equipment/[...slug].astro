@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'equipment'>;
 
 const product = Astro.props;
-const { title, description, price, currency, images = [], phoneNumber, inStock } = product.data;
+const { title, description, price, currency, discount, images = [], phoneNumber, inStock } = product.data;
 const relatedProducts = (await getCollection('equipment'))
   .filter((item) => item.id !== product.id)
   .sort((a, b) => {
@@ -28,11 +28,12 @@ const relatedProducts = (await getCollection('equipment'))
   .slice(0, 4);
 const { Content } = await render(product);
 const currentUrl = Astro.url.href;
-const { displayCurrency, displayPrice } = formatProductPrice(
+const { displayCurrency, displayPrice, discountedPrice } = formatProductPrice(
   price,
   currency,
   USD_TO_UGX,
   DEFAULT_CURRENCY,
+  discount,
 );
 ---
 
@@ -137,6 +138,28 @@ const { displayCurrency, displayPrice } = formatProductPrice(
         color: #007c89;
         font-weight: 700;
       }
+      .original-price {
+        margin-right: 0.35rem;
+        color: #64748b;
+        font-size: 0.85em;
+        font-weight: 400;
+      }
+      .product-original-price {
+        margin-right: 0.5rem;
+        color: #64748b;
+        font-size: 1rem;
+        font-weight: 400;
+      }
+      .discount-label {
+        display: inline-block;
+        margin-left: 0.5rem;
+        border-radius: 4px;
+        padding: 0.2rem 0.4rem;
+        background: #feefe7;
+        color: #f68b1e;
+        font-size: 0.75rem;
+        vertical-align: middle;
+      }
       .related-card:hover h3 {
         color: #007c89;
       }
@@ -165,10 +188,14 @@ const { displayCurrency, displayPrice } = formatProductPrice(
         <div class="product-details">
           <h1 style="font-size: 1.8rem;">{title}</h1>
           <p class="price" style="font-size: 1.8rem; font-weight: bold; color: #007c89;">
-            {displayCurrency} {displayPrice.toLocaleString()}
+            {discountedPrice !== undefined && (
+              <s class="product-original-price">{displayCurrency} {displayPrice.toLocaleString()}</s>
+            )}
+            {displayCurrency} {(discountedPrice ?? displayPrice).toLocaleString()}
+            {discount > 0 && <span class="discount-label">-{discount}%</span>}
           </p>
           {inStock ? (
-            <a href={getWhatsAppLink(phoneNumber, title, displayPrice, displayCurrency, currentUrl)} target="_blank" rel="noopener noreferrer" class="buy-btn">
+            <a href={getWhatsAppLink(phoneNumber, title, discountedPrice ?? displayPrice, displayCurrency, currentUrl)} target="_blank" rel="noopener noreferrer" class="buy-btn">
               Inquire on WhatsApp
             </a>
           ) : (
@@ -185,11 +212,16 @@ const { displayCurrency, displayPrice } = formatProductPrice(
           <h2 id="related-equipment-title">Related equipment</h2>
           <div class="related-track" tabindex="0" aria-label="Scroll through related equipment">
             {relatedProducts.map((relatedProduct) => {
-              const { displayCurrency: relatedCurrency, displayPrice: relatedPrice } = formatProductPrice(
+              const {
+                displayCurrency: relatedCurrency,
+                displayPrice: relatedPrice,
+                discountedPrice: relatedDiscountedPrice,
+              } = formatProductPrice(
                 relatedProduct.data.price,
                 relatedProduct.data.currency,
                 USD_TO_UGX,
                 DEFAULT_CURRENCY,
+                relatedProduct.data.discount,
               );
 
               return (
@@ -209,7 +241,15 @@ const { displayCurrency, displayPrice } = formatProductPrice(
                   )}
                   <div class="related-card-info">
                     <h3>{relatedProduct.data.title}</h3>
-                    <p>{relatedCurrency} {relatedPrice.toLocaleString()}</p>
+                    <p>
+                      {relatedDiscountedPrice !== undefined && (
+                        <s class="original-price">{relatedCurrency} {relatedPrice.toLocaleString()}</s>
+                      )}
+                      {relatedCurrency} {(relatedDiscountedPrice ?? relatedPrice).toLocaleString()}
+                      {relatedProduct.data.discount > 0 && (
+                        <span class="discount-label">-{relatedProduct.data.discount}%</span>
+                      )}
+                    </p>
                   </div>
                 </a>
               );

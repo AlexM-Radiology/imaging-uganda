@@ -5,6 +5,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE, USD_TO_UGX, DEFAULT_CURRENCY } from '../consts';
+import { formatProductPrice } from '../utils/equipment';
 
 const allArticles = await getCollection('articles');
 const allCases = await getCollection('cases');
@@ -260,6 +261,13 @@ const suggestedItems = [
         color: #000000;
       }
 
+      .equipment-price s {
+        margin-right: 0.35rem;
+        color: #64748b;
+        font-size: 0.8rem;
+        font-weight: 400;
+      }
+
       .suggested-section {
         position: relative;
         margin-top: 2.5rem;
@@ -500,22 +508,19 @@ const suggestedItems = [
         <div class="equipment-grid">
           {
             equipmentItems.map((product, index) => {
-              const originalCurrency = product.data.currency ?? DEFAULT_CURRENCY;
-              let displayCurrency = originalCurrency;
-              let displayPrice = product.data.price;
-              
-              if (originalCurrency === 'USD') {
-                displayCurrency = 'UGX';
-                displayPrice = Math.round(product.data.price * USD_TO_UGX);
-              }
-
-              // Dynamic discount computation logic or mock fallback matching the screenshot UI
-              const fallbackDiscount = displayPrice > 5000000 ? 15 : displayPrice > 1000000 ? 25 : 38;
+              const discount = product.data.discount;
+              const { displayCurrency, displayPrice, discountedPrice } = formatProductPrice(
+                product.data.price,
+                product.data.currency,
+                USD_TO_UGX,
+                DEFAULT_CURRENCY,
+                discount,
+              );
 
               return (
                 <a href={`/equipment/${product.id}/`} class="equipment-card" hidden={index >= 6}>
                   <div class="equipment-image-container">
-                    <span class="badge-discount">-{fallbackDiscount}%</span>
+                    {discount > 0 && <span class="badge-discount">-{discount}%</span>}
                     {product.data.images && product.data.images.length > 0 ? (
                       <Image 
                         width={250} 
@@ -532,7 +537,10 @@ const suggestedItems = [
                   <div class="equipment-details">
                     <h3 class="equipment-title">{product.data.title}</h3>
                     <p class="equipment-price">
-                      {displayCurrency} {displayPrice.toLocaleString()}
+                      {discountedPrice !== undefined && (
+                        <s>{displayCurrency} {displayPrice.toLocaleString()}</s>
+                      )}
+                      {displayCurrency} {(discountedPrice ?? displayPrice).toLocaleString()}
                     </p>
                   </div>
                 </a>

@@ -50,6 +50,7 @@ const equipment = defineCollection({
       title: z.string(),
       description: z.string(),
       price: z.number(),
+      discount: z.number().min(0).max(100),
       currency: z.string().default('UGX'),
       images: z.array(image()).default([]), 
       category: z.string().optional(),
