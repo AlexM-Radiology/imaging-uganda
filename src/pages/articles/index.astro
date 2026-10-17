@@ -26,6 +26,7 @@ const totalPages = Math.ceil(allPosts.length / PAGE_SIZE);
   <body>
     <Header />
     <main>
+      <h1>Radiology Articles &amp; Guides</h1>
       <PostList items={posts} routePrefix="articles" />
       <Pagination currentPage={1} totalPages={totalPages} basePath="/articles" />
     </main>

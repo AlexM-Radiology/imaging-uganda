@@ -49,6 +49,7 @@ const posts = allPosts.slice(startIndex, startIndex + PAGE_SIZE);
   <body>
     <Header />
     <main>
+      <h1>{safePage === 1 ? 'Articles' : `Articles - Page ${safePage}`}</h1>
       <PostList items={posts} routePrefix="articles" />
       <Pagination currentPage={safePage} totalPages={totalPages} basePath="/articles" />
     </main>
