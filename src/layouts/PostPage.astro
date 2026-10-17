@@ -6,7 +6,16 @@ import Header from '../components/Header.astro';
 import { SITE_TITLE } from '../consts';
 
 // 1. Destructure author and authorCv from Astro.props
-const { title, description, keywords, pubDate, updatedDate, author, authorCv } = Astro.props;
+const {
+  title,
+  seoTitle = title,
+  description,
+  keywords,
+  pubDate,
+  updatedDate,
+  author,
+  authorCv,
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
 // 2. Dynamically build the author schema object based on availability
@@ -44,7 +53,12 @@ const articleSchema = JSON.stringify({
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} keywords={keywords} schema={articleSchema} />
+    <BaseHead
+      title={seoTitle}
+      description={description}
+      keywords={keywords}
+      schema={articleSchema}
+    />
 
     <style>
       main {

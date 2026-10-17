@@ -15,6 +15,6 @@ const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<PostPage {...post.data}>
+<PostPage {...post.data} seoTitle={`${post.data.title} | Ultrasound Article`}>
 	<Content />
 </PostPage>
