@@ -15,6 +15,7 @@ const {
   updatedDate,
   author,
   authorCv,
+  showPublishedDate = true,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
@@ -110,8 +111,11 @@ const articleSchema = JSON.stringify({
         <div class="prose">
           <div class="title">
             <!-- Changed class name to meta-data to reflect everything inside it -->
-            <div class="meta-data">
-              <span>Published on: <FormattedDate date={pubDate} /></span>
+            {(showPublishedDate || updatedDate || author) && (
+              <div class="meta-data">
+                {showPublishedDate && (
+                  <span>Published on: <FormattedDate date={pubDate} /></span>
+                )}
               {
                 updatedDate && (
                   <span class="last-updated-on">
@@ -130,7 +134,8 @@ const articleSchema = JSON.stringify({
                   </span>
                 )
               }
-            </div>
+              </div>
+            )}
             <h1>{title}</h1>
           </div>
           <slot />
